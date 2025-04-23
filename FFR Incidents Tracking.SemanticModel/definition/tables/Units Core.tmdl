@@ -1,0 +1,354 @@
+table 'Units Core'
+	lineageTag: f3a8e163-280e-4e97-89bd-2362a30bfbed
+
+	column IncidentID
+		dataType: string
+		lineageTag: 1e5ff920-b116-4961-b8d7-918a7680e48d
+		summarizeBy: none
+		sourceColumn: IncidentID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Name'
+		dataType: string
+		lineageTag: 428a312a-37df-43f6-ac5e-7f5edfb1eae2
+		summarizeBy: none
+		sourceColumn: Unit Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Arrival Order'
+		dataType: string
+		lineageTag: 620d2e8d-32a5-43fa-afb9-056f977d2d44
+		summarizeBy: none
+		sourceColumn: Unit Arrival Order
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Apparatus Type'
+		dataType: string
+		lineageTag: e2e4cf6c-6b25-41a0-9059-50abbfbd094e
+		summarizeBy: none
+		sourceColumn: Apparatus Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Priority
+		dataType: string
+		lineageTag: 443ab028-1eab-4dbe-8e0d-db189c105b9f
+		summarizeBy: none
+		sourceColumn: Priority
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Personnel Count'
+		dataType: string
+		lineageTag: a9334ffc-f79c-4434-a98e-1e0e99d17c80
+		summarizeBy: none
+		sourceColumn: Personnel Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Travel Time'
+		dataType: int64
+		formatString: 0
+		lineageTag: 0f1ea4f7-7b1b-4f7e-8c28-96cc7f89178c
+		summarizeBy: sum
+		sourceColumn: Unit Travel Time
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Total Time Dispatch to In District'
+		dataType: int64
+		formatString: 0
+		lineageTag: 95b5be4f-e65a-48d2-9a26-90bc59d84ef8
+		summarizeBy: sum
+		sourceColumn: Unit Total Time Dispatch to In District
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Action Taken 1 NFIRS Code'
+		dataType: string
+		lineageTag: 4fee3235-7517-49c5-9920-9ea9f806295c
+		summarizeBy: none
+		sourceColumn: Unit Action Taken 1 NFIRS Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Responding From'
+		dataType: string
+		lineageTag: 279e3f2b-bb50-4f91-a04b-5ad0b9d7d60d
+		summarizeBy: none
+		sourceColumn: Responding From
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fire Incident Apparatus ID'
+		dataType: string
+		lineageTag: 6507770c-b29c-4816-907d-6ede7c53a4ce
+		summarizeBy: none
+		sourceColumn: Fire Incident Apparatus ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Enroute Order'
+		dataType: string
+		lineageTag: 79d088ad-23a0-442f-80c1-541d3f2145c9
+		summarizeBy: none
+		sourceColumn: Unit Enroute Order
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Re-Dispatched'
+		dataType: string
+		lineageTag: 3860233f-f6bb-463d-b158-eace1291e223
+		summarizeBy: none
+		sourceColumn: Unit Re-Dispatched
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Cleared Scene DateTime'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 11a26a78-be17-42c6-b3d2-d5edda8e8368
+		summarizeBy: none
+		sourceColumn: Unit Cleared Scene DateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column ApparatusID
+		dataType: string
+		lineageTag: 3f117c5b-e7a4-426a-ab63-0b95e1f419a5
+		summarizeBy: none
+		sourceColumn: ApparatusID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cancelled Prior To Arrival'
+		dataType: string
+		lineageTag: c0c9abfe-bbf3-4c3e-b1bb-2c344d161f70
+		summarizeBy: none
+		sourceColumn: Cancelled Prior To Arrival
+
+		annotation SummarizationSetBy = Automatic
+
+	column ExposureID
+		dataType: string
+		lineageTag: d7ad0404-8bad-4453-8958-c32725a2ba73
+		summarizeBy: none
+		sourceColumn: ExposureID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Response Time'
+		dataType: int64
+		formatString: 0
+		lineageTag: 57f94ae3-c8c4-46c9-a96e-49b201899e6f
+		summarizeBy: sum
+		sourceColumn: Unit Response Time
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Total Time Dispatch to Clear'
+		dataType: int64
+		formatString: 0
+		lineageTag: 7b2e0113-51f7-49d7-9c9e-2c19c9dc0e8d
+		summarizeBy: sum
+		sourceColumn: Unit Total Time Dispatch to Clear
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Apparatus Type Code'
+		dataType: string
+		lineageTag: c03dc43f-a47f-4e42-983f-c31d6029257a
+		summarizeBy: none
+		sourceColumn: Apparatus Type Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Narrative'
+		dataType: string
+		lineageTag: 2157bece-cb07-4bfb-a071-fa8ee33eb5cd
+		summarizeBy: none
+		sourceColumn: Unit Narrative
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Enroute DateTime'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 93ee98f6-61a9-47ff-956f-364f620f89fc
+		summarizeBy: none
+		sourceColumn: Unit Enroute DateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Total On Scene Time'
+		dataType: int64
+		formatString: 0
+		lineageTag: b0129618-d1b0-4c8d-a3b9-c2e308c89a46
+		summarizeBy: sum
+		sourceColumn: Unit Total On Scene Time
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit In District DateTime'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 88131098-6ab1-44fe-81d0-a845ab8f2fc5
+		summarizeBy: none
+		sourceColumn: Unit In District DateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Aiding Agency'
+		dataType: string
+		lineageTag: fe6e17a6-34d2-4e91-bb36-1c3492c63f67
+		summarizeBy: none
+		sourceColumn: Aiding Agency
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Apparatus Use Code'
+		dataType: string
+		lineageTag: e1c8dc27-b4d8-4160-9ceb-a6559dbacd8e
+		summarizeBy: none
+		sourceColumn: Apparatus Use Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Arrival Time'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 6e30b12c-4df7-4dc6-8b44-e5cf01c11795
+		summarizeBy: none
+		sourceColumn: Unit Arrival Time
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Dispatched DateTime'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 6d605281-d59d-49e0-8c55-432d4495ef97
+		summarizeBy: none
+		sourceColumn: Unit Dispatched DateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Turnout Time'
+		dataType: int64
+		formatString: 0
+		lineageTag: c4b7c986-51de-4b9e-af75-1571a213ef98
+		summarizeBy: sum
+		sourceColumn: Unit Turnout Time
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Aiding Agency Unit'
+		dataType: string
+		lineageTag: e3a30d97-5734-406c-bc55-91fd8c21611f
+		summarizeBy: none
+		sourceColumn: Aiding Agency Unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Apparatus Use'
+		dataType: string
+		lineageTag: 1d256a45-6241-4e5f-8507-028fd5f5a800
+		summarizeBy: none
+		sourceColumn: Apparatus Use
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 54e217ea-73aa-4e87-af44-906305c3ec7b
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition 'Units Core' = m
+		mode: import
+		source =
+				let
+				    Source = SharePoint.Files("https://foothillsfirepd.sharepoint.com/sites/OfficeOperations", [ApiVersion = 15]),
+				    #"Uppercased Text" = Table.TransformColumns(Source,{{"Name", Text.Upper, type text}, {"Extension", Text.Upper, type text}}),
+				    #"Filtered SourceData" = Table.SelectRows(#"Uppercased Text", each Text.Contains([Folder Path], SourceData)),
+				    #"Filtered Hidden Files1" = Table.SelectRows(#"Filtered SourceData", each [Attributes]?[Hidden]? <> true),
+				    #"Filtered Units Core" = Table.SelectRows(#"Filtered Hidden Files1", each Text.Contains([Name], "UNITS CORE")),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Filtered Units Core",{"Content"}),
+				    #"Added Custom" = Table.AddColumn(#"Removed Other Columns", "Custom", each Csv.Document([Content])),
+				    #"Removed Columns4" = Table.RemoveColumns(#"Added Custom",{"Content"}),
+				    #"Expanded Custom1" = Table.ExpandTableColumn(#"Removed Columns4", "Custom", {"Column1", "Column2", "Column3", "Column4", "Column5", "Column6", "Column7", "Column8", "Column9", "Column10", "Column11", "Column12", "Column13", "Column14", "Column15", "Column16", "Column17", "Column18", "Column19", "Column20", "Column21", "Column22", "Column23", "Column24", "Column25", "Column26", "Column27", "Column28", "Column29", "Column30", "Column31", "Column32", "Column33", "Column34", "Column35", "Column36", "Column37", "Column38", "Column39", "Column40", "Column41", "Column42", "Column43", "Column44", "Column45", "Column46"}, {"Column1", "Column2", "Column3", "Column4", "Column5", "Column6", "Column7", "Column8", "Column9", "Column10", "Column11", "Column12", "Column13", "Column14", "Column15", "Column16", "Column17", "Column18", "Column19", "Column20", "Column21", "Column22", "Column23", "Column24", "Column25", "Column26", "Column27", "Column28", "Column29", "Column30", "Column31", "Column32", "Column33", "Column34", "Column35", "Column36", "Column37", "Column38", "Column39", "Column40", "Column41", "Column42", "Column43", "Column44", "Column45", "Column46"}),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Expanded Custom1", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Unit Dispatched DateTime", type datetime}}),
+				    #"Removed Errors" = Table.RemoveRowsWithErrors(#"Changed Type", {"Unit Dispatched DateTime"}),
+				    #"Filtered Rows5" = Table.SelectRows(#"Removed Errors", each [Unit Name] <> null and [Unit Name] <> ""),
+				    #"Reordered Columns1" = Table.ReorderColumns(#"Filtered Rows5",{
+				"IncidentID",
+				"Unit Name",
+				"Unit Arrival Order",
+				"Apparatus Type",
+				"Priority",
+				"Personnel Count",
+				"Unit Action Taken 4",
+				"Unit Travel Time",
+				"Unit Action Taken 2",
+				"Unit Action Taken 3",
+				"Unit Total Time Dispatch to In District",
+				"Unit Action Taken 1 NFIRS Code",
+				"Responding From",
+				"Unit Action Taken 3 NFIRS Code",
+				"Fire Incident Apparatus ID",
+				"Unit At Patient DateTime",
+				"Unit Enroute Order",
+				"Unit Re-Dispatched",
+				"Apparatus Type NFIRS Code",
+				"Unit Cleared Scene DateTime",
+				"Unit Action Taken 2 Code",
+				"ApparatusID",
+				"Cancelled Prior To Arrival",
+				"ExposureID",
+				"Unit Response Time",
+				"Unit Total Time Dispatch to Clear",
+				"Apparatus Type Code",
+				"Unit Action Taken 3 Code",
+				"Unit Narrative",
+				"Unit Enroute DateTime",
+				"Unit Total On Scene Time",
+				"Unit Action Taken 2 NFIRS Code",
+				"Unit In Quarters DateTime",
+				"Apparatus Use NFIRS Code",
+				"Unit Action Taken 4 Code",
+				"Unit In District DateTime",
+				"Unit Action Taken 1",
+				"Aiding Agency",
+				"Unit Action Taken 1 Code",
+				"Apparatus Use Code",
+				"Unit Arrival Time",
+				"Unit Dispatched DateTime",
+				"Unit Turnout Time",
+				"Aiding Agency Unit",
+				"Apparatus Use",
+				"Unit Action Taken 4 NFIRS Code"}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Reordered Columns1",{{"Unit Cleared Scene DateTime", type datetime}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type1",{"Unit Action Taken 4", "Unit Action Taken 2", "Unit Action Taken 3", "Unit Action Taken 3 NFIRS Code", "Unit At Patient DateTime", "Unit Action Taken 2 Code", "Unit Action Taken 3 Code", "Unit Action Taken 2 NFIRS Code", "Unit Action Taken 4 Code", "Unit Action Taken 1", "Unit Action Taken 1 Code"}),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Removed Columns",{{"Unit Dispatched DateTime", type datetime}}),
+				    #"Inserted Date" = Table.AddColumn(#"Changed Type2", "Date", each Date.From([Unit Dispatched DateTime]), type date),
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Inserted Date",{{"Unit Travel Time", Int64.Type}, {"Unit Total Time Dispatch to In District", Int64.Type}}),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Changed Type3",{"Apparatus Type NFIRS Code"}),
+				    #"Changed Type4" = Table.TransformColumnTypes(#"Removed Columns1",{{"Unit Response Time", Int64.Type}, {"Unit Total Time Dispatch to Clear", Int64.Type}, {"Unit Enroute DateTime", type datetime}}),
+				    #"Removed Columns2" = Table.RemoveColumns(#"Changed Type4",{"Unit In Quarters DateTime", "Apparatus Use NFIRS Code"}),
+				    #"Changed Type5" = Table.TransformColumnTypes(#"Removed Columns2",{{"Unit Total On Scene Time", Int64.Type}, {"Unit In District DateTime", type datetime}, {"Unit Arrival Time", type datetime}, {"Unit Turnout Time", Int64.Type}}),
+				    #"Removed Columns3" = Table.RemoveColumns(#"Changed Type5",{"Unit Action Taken 4 NFIRS Code"})
+				in
+				    #"Removed Columns3"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,42 @@
+table UnitLookup
+	lineageTag: 52f4aa20-4b16-4bff-a50f-d7f3364c5a54
+
+	column 'Source Unit Name'
+		dataType: string
+		lineageTag: 8e100bb7-8fa3-4a24-9588-8ec7664bff49
+		summarizeBy: none
+		sourceColumn: Source Unit Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Name'
+		dataType: string
+		lineageTag: 4ae1d37d-0302-4ed3-b16a-946172b74443
+		summarizeBy: none
+		sourceColumn: Unit Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Type'
+		dataType: string
+		lineageTag: dcbf2d8a-f271-4fd6-ab98-4c507bfb7ff7
+		summarizeBy: none
+		sourceColumn: Unit Type
+
+		annotation SummarizationSetBy = Automatic
+
+	partition UnitLookup = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("ZZK9DoIwEIBfhTA72DZHO5tgnNSQ4kKYlBgSw6A4+Pb2uINwx8Ld99H7SdOmyeuxf/XjLwPr811eR4ztbu0L9oXywB6Ud+yd8oa9IZ+ywCYsRu0QN9PjZm7cTEyZZWMXI6fHbnh07wwKLI0YhDVk+Sx4O7G3zKpKna+6z/3bZRDQVhgmC8ERu5nF/+vllhC/SMdTysx+Y7QQfMbbS2FGK9GssBye/ZB2dHi9JQZhgSxI68jS/inxxH5m2Ut3UfUHANxvCsyGmO5DtRePpf0D", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Unit Name" = _t, UnitName = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Unit Name", type text}, {"UnitName", type text}}),
+				    #"Added Conditional Column" = Table.AddColumn(#"Changed Type", "Unit Type", each if Text.StartsWith([UnitName], "UT") then "Utility" else if Text.StartsWith([UnitName], "T") then "Tender" else if Text.StartsWith([UnitName], "R") then "Rescue" else if Text.StartsWith([UnitName], "E") then "Engine" else if Text.StartsWith([UnitName], "B") then "Brush" else if Text.StartsWith([UnitName], "FHN") then "POV" else if Text.StartsWith([UnitName], "POV") then "POV" else null),
+				    #"Renamed Columns" = Table.RenameColumns(#"Added Conditional Column",{{"Unit Name", "Source Unit Name"}, {"UnitName", "Unit Name"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

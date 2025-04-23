@@ -1,0 +1,8 @@
+relationship ba056929-f0a5-9ce3-8220-d4452d830ada
+	fromColumn: 'Incidents Core'.AlarmTimeToMinute
+	toColumn: tblTime.TimeToMinute
+
+relationship b19b2600-988d-831d-3a63-031bf7e93f33
+	fromColumn: 'Incidents Core'.'Alarm Date'
+	toColumn: DateTable.Date
+

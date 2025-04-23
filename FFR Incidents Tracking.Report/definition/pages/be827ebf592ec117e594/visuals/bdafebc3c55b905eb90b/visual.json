@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.6.0/schema.json",
+  "name": "bdafebc3c55b905eb90b",
+  "position": {
+    "x": 221.25,
+    "y": 160,
+    "z": 0,
+    "height": 300,
+    "width": 300
+  },
+  "visual": {
+    "visualType": "card",
+    "autoSelectVisualType": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Incidents Core"
+                    }
+                  },
+                  "Property": "Average Response Time (mm:ss)"
+                }
+              },
+              "queryRef": "Incidents.Average Response Time (mm:ss)",
+              "nativeQueryRef": "Average Response Time (mm:ss)"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

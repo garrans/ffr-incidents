@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "FFR Incidents Tracking"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "1211157b-38b6-4d04-a637-ce0d088381ee"
+  }
+}

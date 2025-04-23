@@ -1,0 +1,45 @@
+expression RangeStart = #datetime(2024, 1, 1, 13, 0, 0) meta [IsParameterQuery=true, Type="DateTime", IsParameterQueryRequired=true]
+	lineageTag: 4a4e341b-3a8b-44c1-890b-5cb79da29c51
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = DateTime
+
+expression RangeEnd = #datetime(2025, 1, 1, 0, 0, 0) meta [IsParameterQuery=true, Type="DateTime", IsParameterQueryRequired=true]
+	lineageTag: 515ec169-449e-444b-9499-aaa9853da497
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = DateTime
+
+/// MinimalData or AllData
+expression SourceData = "mindata2" meta [IsParameterQuery=true, List={"MinimalData", "AllData"}, DefaultValue="AllData", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 99bfc9e1-031f-4087-af3a-f564e201d6ce
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression 'Errors in Units' =
+		let
+		Source = #"Units Core",
+		  #"Detected Type Mismatches" = let
+		    tableWithOnlyPrimitiveTypes = Table.SelectColumns(Source, Table.ColumnsOfType(Source, {type nullable number, type nullable text, type nullable logical, type nullable date, type nullable datetime, type nullable datetimezone, type nullable time, type nullable duration})),
+		    recordTypeFields = Type.RecordFields(Type.TableRow(Value.Type(tableWithOnlyPrimitiveTypes))),
+		    fieldNames = Record.FieldNames(recordTypeFields),
+		    fieldTypes = List.Transform(Record.ToList(recordTypeFields), each [Type]),
+		    pairs = List.Transform(List.Positions(fieldNames), (i) => {fieldNames{i}, (v) => if v = null or Value.Is(v, fieldTypes{i}) then v else error [Message = "The type of the value does not match the type of the column.", Detail = v], fieldTypes{i}})
+		in
+		    Table.TransformColumns(Source, pairs),
+		  #"Added Index" = Table.AddIndexColumn(#"Detected Type Mismatches", "Row Number" ,1),
+		  #"Kept Errors" = Table.SelectRowsWithErrors(#"Added Index", {"IncidentID", "Unit Name", "Unit Arrival Order", "Apparatus Type", "Priority", "Personnel Count", "Unit Travel Time", "Unit Total Time Dispatch to In District", "Unit Action Taken 1 NFIRS Code", "Responding From", "Fire Incident Apparatus ID", "Unit Enroute Order", "Unit Re-Dispatched", "Unit Cleared Scene DateTime", "ApparatusID", "Cancelled Prior To Arrival", "ExposureID", "Unit Response Time", "Unit Total Time Dispatch to Clear", "Apparatus Type Code", "Unit Narrative", "Unit Enroute DateTime", "Unit Total On Scene Time", "Unit In District DateTime", "Aiding Agency", "Apparatus Use Code", "Unit Arrival Time", "Unit Dispatched DateTime", "Unit Turnout Time", "Aiding Agency Unit", "Apparatus Use", "Date"}),
+		  #"Reordered Columns" = Table.ReorderColumns(#"Kept Errors", {"Row Number", "IncidentID", "Unit Name", "Unit Arrival Order", "Apparatus Type", "Priority", "Personnel Count", "Unit Travel Time", "Unit Total Time Dispatch to In District", "Unit Action Taken 1 NFIRS Code", "Responding From", "Fire Incident Apparatus ID", "Unit Enroute Order", "Unit Re-Dispatched", "Unit Cleared Scene DateTime", "ApparatusID", "Cancelled Prior To Arrival", "ExposureID", "Unit Response Time", "Unit Total Time Dispatch to Clear", "Apparatus Type Code", "Unit Narrative", "Unit Enroute DateTime", "Unit Total On Scene Time", "Unit In District DateTime", "Aiding Agency", "Apparatus Use Code", "Unit Arrival Time", "Unit Dispatched DateTime", "Unit Turnout Time", "Aiding Agency Unit", "Apparatus Use", "Date"})
+		in
+		  #"Reordered Columns"
+	lineageTag: cd260cca-4b1e-40cd-b4c7-702b2d51b6db
+	queryGroup: 'Query Errors - 4/16/2025 7:08:15 AM'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

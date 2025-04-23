@@ -1,0 +1,34 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup TransformFilesHelperQueries
+
+	annotation PBI_QueryGroupOrder = 13
+
+/// Errors in queries that were loaded on 4/16/2025 7:08:15 AM.
+queryGroup 'Query Errors - 4/16/2025 7:08:15 AM'
+
+	annotation PBI_QueryGroupOrder = 1
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBIDesktopVersion = 2.141.1754.0 (25.03)+e4409ed908ce97a5e9747f7dc48da475cf1c71a2
+
+annotation PBI_QueryOrder = ["SourceData","Incidents Core","Units Core","Units Personnel","DateTable","tblTime","UnitLookup","RangeStart","RangeEnd","Errors in Units"]
+
+annotation PBI_ProTooling = ["WebModelingEdit","DevMode"]
+
+ref table 'Incidents Core'
+ref table DateTable
+ref table 'Units Personnel'
+ref table tblTime
+ref table UnitLookup
+ref table 'Units Core'
+
+ref cultureInfo en-US
+

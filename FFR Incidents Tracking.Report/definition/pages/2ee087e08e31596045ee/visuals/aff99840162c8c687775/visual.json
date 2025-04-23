@@ -1,0 +1,57 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.6.0/schema.json",
+  "name": "aff99840162c8c687775",
+  "position": {
+    "x": 90,
+    "y": 492.85714285714289,
+    "z": 2000,
+    "height": 215.71428571428572,
+    "width": 904.28571428571433,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Incidents Core"
+                    }
+                  },
+                  "Property": "Station"
+                }
+              },
+              "queryRef": "Incidents.Station",
+              "nativeQueryRef": "Station"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Incidents Core"
+                        }
+                      },
+                      "Property": "IncidentID"
+                    }
+                  },
+                  "Function": 5
+                }
+              },
+              "queryRef": "Incidents.IncidentID",
+              "nativeQueryRef": "Count of IncidentID"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

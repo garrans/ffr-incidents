@@ -1,0 +1,80 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.6.0/schema.json",
+  "name": "dd2be443aa54e0aa52c0",
+  "position": {
+    "x": 11.086614173228346,
+    "y": 221.73228346456693,
+    "z": 1000,
+    "height": 497.88976377952758,
+    "width": 844.59842519685037,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "tblTime"
+                    }
+                  },
+                  "Property": "PartOfDay"
+                }
+              },
+              "queryRef": "tblTime.PartOfDay",
+              "nativeQueryRef": "PartOfDay",
+              "active": true
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DateTable"
+                    }
+                  },
+                  "Property": "Day of Week"
+                }
+              },
+              "queryRef": "DateTable.Day of Week",
+              "nativeQueryRef": "Day of Week"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Incidents Core"
+                        }
+                      },
+                      "Property": "IncidentID"
+                    }
+                  },
+                  "Function": 5
+                }
+              },
+              "queryRef": "CountNonNull(Incidents.IncidentID)",
+              "nativeQueryRef": "Count of IncidentID"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

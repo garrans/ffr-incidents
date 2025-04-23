@@ -1,0 +1,1243 @@
+table 'Incidents Core'
+	lineageTag: 4dcb38af-476c-472b-a97c-38b3fd193327
+
+	measure 'Sum of Response Times' = (SUM('Incidents Core'[Response Time PSAP To Arrival]))
+		formatString: 0
+		lineageTag: 89b911f6-5776-4050-9b9d-ebeac122c52a
+
+	measure 'Average Response Time' = AVERAGE('Incidents Core'[Response Time Alarm To Arrival])
+		lineageTag: 824b0cd1-b5bb-4e59-92a9-eb292d109e32
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Average Response Time (mm:ss)' = ```
+			
+			VAR TotalSeconds = 
+			    AVERAGE('Incidents Core'[Response Time Alarm To Arrival])
+			VAR Minutes = INT(TotalSeconds / 60)
+			VAR Seconds = MOD(TotalSeconds, 60)
+			RETURN 
+			    FORMAT(Minutes, "0") & ":" & FORMAT(Seconds, "00")
+			```
+		lineageTag: b8c03545-539f-4a9d-a7a7-617a469cb35f
+
+	measure 'Average 3M Rolling' = ```
+			
+			VAR _CurrentDate = TODAY()
+			VAR _EndDate = EOMONTH(_CurrentDate, -1)
+			VAR _StartDate = EOMONTH(_CurrentDate, -3)
+			VAR _Average = CALCULATE(
+			    AVERAGE('Incidents Core'[Response Time Alarm To Arrival]),
+			        'Incidents Core'[Alarm Date] >= _StartDate && 'Incidents Core'[Alarm Date] <= _EndDate
+			        )
+			VAR Minutes = INT(_Average / 60)
+			VAR Seconds = MOD(_Average, 60)
+			RETURN 
+			    FORMAT(Minutes, "0") & ":" & FORMAT(Seconds, "00")
+			```
+		lineageTag: 8966ecaf-03ca-4958-8325-b4fc57bca026
+
+	measure 'Average Incidents per Month' = CALCULATE(count('Incidents Core'[IncidentID]))
+		formatString: 0
+		lineageTag: a19fa038-d214-4d4b-9672-33dcb08c931f
+
+	column IncidentID
+		dataType: string
+		lineageTag: 32fd5cc7-4b7b-4dc3-affe-ec23428b801a
+		summarizeBy: none
+		sourceColumn: IncidentID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Alarm DateTime'
+		dataType: string
+		lineageTag: bf1c9360-3356-4eb8-a395-5b238ced783d
+		summarizeBy: none
+		sourceColumn: Alarm DateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Agency FDID'
+		dataType: string
+		lineageTag: aa5fc918-8948-4387-9c0e-b1f14ee95929
+		summarizeBy: none
+		sourceColumn: Agency FDID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Aid Given Or Received Code'
+		dataType: string
+		lineageTag: dec0ff6d-4d4d-48c3-a5a2-7dacf5be1c5d
+		summarizeBy: none
+		sourceColumn: Aid Given Or Received Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Aid Given Or Received'
+		dataType: string
+		lineageTag: 69f19b14-1ccd-4e56-b678-a3b513e17193
+		summarizeBy: none
+		sourceColumn: Aid Given Or Received
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Aided Agency Incident Number'
+		dataType: string
+		lineageTag: f5db1e84-8658-4653-a7b1-4115280195a5
+		summarizeBy: none
+		sourceColumn: Aided Agency Incident Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Aided Agency'
+		dataType: string
+		lineageTag: 049fa937-6bff-4d5f-a619-523b3f4c426d
+		summarizeBy: none
+		sourceColumn: Aided Agency
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Arrival DateTime'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d15f51c9-dfe3-44ac-ac00-933b9923487c
+		summarizeBy: none
+		sourceColumn: Arrival DateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Basic Action Taken 1 Code'
+		dataType: string
+		lineageTag: 8bc1676b-f2da-454a-9ddc-f3566dffe015
+		summarizeBy: none
+		sourceColumn: Basic Action Taken 1 Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Basic Action Taken 1'
+		dataType: string
+		lineageTag: ce907522-f455-42d8-9c8e-0d044b7941ac
+		summarizeBy: none
+		sourceColumn: Basic Action Taken 1
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Basic Action Taken 2 Code'
+		dataType: string
+		lineageTag: 6a3a10af-6684-4cc3-beb6-9cac1addf9d8
+		summarizeBy: none
+		sourceColumn: Basic Action Taken 2 Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Basic Action Taken 2'
+		dataType: string
+		lineageTag: 127e314a-c621-495a-b572-418cc327a01e
+		summarizeBy: none
+		sourceColumn: Basic Action Taken 2
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Basic Action Taken 3 Code'
+		dataType: string
+		lineageTag: 7eea397a-0e81-470a-a1a2-04f0385fef00
+		summarizeBy: none
+		sourceColumn: Basic Action Taken 3 Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Basic Action Taken 3'
+		dataType: string
+		lineageTag: 0e7aec0f-5884-47c0-be97-168edfce7d91
+		summarizeBy: none
+		sourceColumn: Basic Action Taken 3
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'CAD Notes'
+		dataType: string
+		lineageTag: 83e02374-5319-4b10-a877-5bb28dae643d
+		summarizeBy: none
+		sourceColumn: CAD Notes
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contents Loss Is None'
+		dataType: string
+		lineageTag: c89c701a-85ac-4cae-9db7-a5e6f551edca
+		summarizeBy: none
+		sourceColumn: Contents Loss Is None
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Contents Value Is None'
+		dataType: string
+		lineageTag: 2950f262-9d78-417c-8f7c-f9fc4d368b43
+		summarizeBy: none
+		sourceColumn: Contents Value Is None
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Critical Incident Circumstance 1 Code'
+		dataType: string
+		lineageTag: 9053b77f-deca-43b6-a9f0-1fd084f0d231
+		summarizeBy: none
+		sourceColumn: Critical Incident Circumstance 1 Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Critical Incident Circumstance 1'
+		dataType: string
+		lineageTag: 3847aaa4-fb79-43cf-a115-8e7366f7cf89
+		summarizeBy: none
+		sourceColumn: Critical Incident Circumstance 1
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Critical Incident Circumstance 2'
+		dataType: string
+		lineageTag: 5db3cbd2-d10b-4a4f-92f1-5ff5914d4c8c
+		summarizeBy: none
+		sourceColumn: Critical Incident Circumstance 2
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Critical Incident Team Mobilized'
+		dataType: string
+		lineageTag: 5a30b1f6-dcc8-4d3d-8ea9-89547c2d0dd6
+		summarizeBy: none
+		sourceColumn: Critical Incident Team Mobilized
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Critical Incident'
+		dataType: string
+		lineageTag: 43e8dd05-28c0-4999-be62-14362ba6b078
+		summarizeBy: none
+		sourceColumn: Critical Incident
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Detector Alerted Occupants Code'
+		dataType: string
+		lineageTag: 0184ea78-4208-4657-9e0b-2fb5e4d4265d
+		summarizeBy: none
+		sourceColumn: Detector Alerted Occupants Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Detector Alerted Occupants NFIRS Code'
+		dataType: string
+		lineageTag: cd7f652d-7520-4dcd-b336-f1e36641bb80
+		summarizeBy: none
+		sourceColumn: Detector Alerted Occupants NFIRS Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Detector Alerted Occupants'
+		dataType: string
+		lineageTag: f5785aef-c1ae-4500-a218-2d6cae4fdb99
+		summarizeBy: none
+		sourceColumn: Detector Alerted Occupants
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dispatch Notified Alarm Handling Time'
+		dataType: double
+		formatString: 0
+		lineageTag: 91d1ec50-2e7c-4889-9813-e64a18939d86
+		summarizeBy: sum
+		sourceColumn: Dispatch Notified Alarm Handling Time
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dispatch Run Number'
+		dataType: string
+		lineageTag: 3c223f8c-5d12-477c-9418-1be7be472223
+		summarizeBy: none
+		sourceColumn: Dispatch Run Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dispatch Total Response Time'
+		dataType: double
+		formatString: 0
+		lineageTag: 9f6e4f44-4207-4574-9cc3-392c53d99919
+		summarizeBy: sum
+		sourceColumn: Dispatch Total Response Time
+
+		annotation SummarizationSetBy = Automatic
+
+	column District
+		dataType: string
+		lineageTag: f2ea7a2c-cb78-4230-9645-000c6969b88e
+		summarizeBy: none
+		sourceColumn: District
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'EMS Apparatus Count'
+		dataType: string
+		lineageTag: d299ebf9-c029-449d-ab45-1a7fac9888f5
+		summarizeBy: none
+		sourceColumn: EMS Apparatus Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'EMS Personnel Count'
+		dataType: string
+		lineageTag: 908ad69b-5f90-40b3-a14b-e4ef57969590
+		summarizeBy: none
+		sourceColumn: EMS Personnel Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Estimated Content Loss'
+		dataType: string
+		lineageTag: dc4006e2-3296-4c05-8d4c-90ea6f1d0f0a
+		summarizeBy: none
+		sourceColumn: Estimated Content Loss
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Estimated Content Value'
+		dataType: string
+		lineageTag: 3c625d9f-6b19-4698-afba-c10deeb49a51
+		summarizeBy: none
+		sourceColumn: Estimated Content Value
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Estimated Property Loss'
+		dataType: string
+		lineageTag: ad93d6ba-e663-4b47-a60c-b77063e096d9
+		summarizeBy: none
+		sourceColumn: Estimated Property Loss
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Estimated Property Value'
+		dataType: string
+		lineageTag: 386e74f9-b948-41ad-888e-9d14d12dbbc6
+		summarizeBy: none
+		sourceColumn: Estimated Property Value
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Exposure Number'
+		dataType: string
+		lineageTag: b0e37d85-160b-4f27-9822-0075a97aff90
+		summarizeBy: none
+		sourceColumn: Exposure Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column ExposureID
+		dataType: string
+		lineageTag: ef4566fc-e92b-41c7-8d70-939dcf871227
+		summarizeBy: none
+		sourceColumn: ExposureID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'First Arriving Travel Time'
+		dataType: string
+		lineageTag: 28be8431-7740-45b6-933e-7f53f6dd5939
+		summarizeBy: none
+		sourceColumn: First Arriving Travel Time
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hazardous Materials Released Code'
+		dataType: string
+		lineageTag: 1c8d3bcc-1fc9-43ee-8d7e-246bbde2f701
+		summarizeBy: none
+		sourceColumn: Hazardous Materials Released Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hazardous Materials Released NFIRS Code'
+		dataType: string
+		lineageTag: c2b92699-b7b3-4071-af4e-e517b367eb5e
+		summarizeBy: none
+		sourceColumn: Hazardous Materials Released NFIRS Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Hazardous Materials Released'
+		dataType: string
+		lineageTag: 6915c1a0-61a1-4968-88a5-50914b5b8536
+		summarizeBy: none
+		sourceColumn: Hazardous Materials Released
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Incident Controlled DateTime'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 2e338bd4-fcf4-4d78-bdad-4bdee158975b
+		summarizeBy: none
+		sourceColumn: Incident Controlled DateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Incident Date Offset'
+		dataType: string
+		lineageTag: b33341cb-c104-4a32-9252-115de4a2abc9
+		summarizeBy: none
+		sourceColumn: Incident Date Offset
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Incident Last Modified DateTime'
+		dataType: string
+		lineageTag: 568918e8-bee8-42d0-95d3-6f415f9d991a
+		summarizeBy: none
+		sourceColumn: Incident Last Modified DateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Incident Number'
+		dataType: string
+		lineageTag: 4c8088c6-e5fc-4073-9c82-3f20f12b0704
+		summarizeBy: none
+		sourceColumn: Incident Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Incident Type Code'
+		dataType: string
+		lineageTag: cd27da6f-be22-41bb-9a6a-a38b992c6239
+		summarizeBy: none
+		sourceColumn: Incident Type Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Incident Type Group'
+		dataType: string
+		lineageTag: b8b664ea-db37-4872-9e9b-8fce591e46e6
+		summarizeBy: none
+		sourceColumn: Incident Type Group
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Incident Type NFIRS Code'
+		dataType: string
+		lineageTag: ea73b2be-d7bd-4310-a4e6-9b1841434238
+		summarizeBy: none
+		sourceColumn: Incident Type NFIRS Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Incident Type'
+		dataType: string
+		lineageTag: 05f381d3-29ca-42a6-b0e5-3819769e6a8b
+		summarizeBy: none
+		sourceColumn: Incident Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Initial Dispatch Code'
+		dataType: string
+		lineageTag: d0a53b71-cc59-45d7-a3dc-0dad294a56c3
+		summarizeBy: none
+		sourceColumn: Initial Dispatch Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Injury or Death'
+		dataType: string
+		lineageTag: f59de4b9-747e-4ad0-ae77-6e2f9f90aff9
+		summarizeBy: none
+		sourceColumn: Injury or Death
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Intervention Time Arrival To At Patient'
+		dataType: string
+		lineageTag: 5cd9dc4d-61fc-4656-94ba-73851360a87f
+		summarizeBy: none
+		sourceColumn: Intervention Time Arrival To At Patient
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Intervention Time Arrival To Water On Fire'
+		dataType: string
+		lineageTag: 08b33242-b4eb-40f6-809e-6d8396e3efa8
+		summarizeBy: none
+		sourceColumn: Intervention Time Arrival To Water On Fire
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Is Active'
+		dataType: string
+		lineageTag: 32324f27-e7c5-4fa7-b1aa-0f0cf52ef34d
+		summarizeBy: none
+		sourceColumn: Is Active
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Is Locked'
+		dataType: string
+		lineageTag: e8d0a96d-0a25-4751-bfc5-fcea0f01b016
+		summarizeBy: none
+		sourceColumn: Is Locked
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Is Third Party Import'
+		dataType: string
+		lineageTag: 819284fa-0561-4ddf-bfe7-5f5497407605
+		summarizeBy: none
+		sourceColumn: Is Third Party Import
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Last Record Loaded Date'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 9134cf76-785b-49d8-8bd8-4ab43c32d4b6
+		summarizeBy: none
+		sourceColumn: Last Record Loaded Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Last Unit Cleared DateTime'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 5f6d66d6-ca44-44e9-9e57-982b8b4651f3
+		summarizeBy: none
+		sourceColumn: Last Unit Cleared DateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column Latitude
+		dataType: double
+		lineageTag: ba2e1d1a-30ca-4d77-bfa7-a6168b103ce4
+		summarizeBy: sum
+		sourceColumn: Latitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Location Apartment Number'
+		dataType: string
+		lineageTag: bdd52a12-06e1-4ee9-8cbd-05c2876688aa
+		summarizeBy: none
+		sourceColumn: Location Apartment Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Location City'
+		dataType: string
+		lineageTag: 10b781d2-1f1f-476a-9781-6773d4740638
+		summarizeBy: none
+		sourceColumn: Location City
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Location County'
+		dataType: string
+		lineageTag: 6608d629-da69-42ef-b752-7b895858eaaa
+		summarizeBy: none
+		sourceColumn: Location County
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Location Cross Street, USNG, or Directions'
+		dataType: string
+		lineageTag: b41c3fa7-5e76-4409-8ccb-3c139e5de890
+		summarizeBy: none
+		sourceColumn: Location Cross Street, USNG, or Directions
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Location State Code'
+		dataType: string
+		lineageTag: 02898efc-0eba-4b39-af0b-d616f46db0d7
+		summarizeBy: none
+		sourceColumn: Location State Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Location State'
+		dataType: string
+		lineageTag: 213b838a-7e7e-45ac-88e9-13fc163fecc2
+		summarizeBy: none
+		sourceColumn: Location State
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Location Street Address'
+		dataType: string
+		lineageTag: 769a738d-a20a-4183-bbe7-6902266f3392
+		summarizeBy: none
+		sourceColumn: Location Street Address
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Location Street Number or Mile Post'
+		dataType: string
+		lineageTag: cb659de7-2852-45c9-9adf-e96672456cf9
+		summarizeBy: none
+		sourceColumn: Location Street Number or Mile Post
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Location Street Prefix Code'
+		dataType: string
+		lineageTag: fcb2e9d4-1205-4e8c-bd12-bdaf883b509a
+		summarizeBy: none
+		sourceColumn: Location Street Prefix Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Location Street Prefix'
+		dataType: string
+		lineageTag: 949e0aa2-bf63-4f30-ae11-7ae01dada96b
+		summarizeBy: none
+		sourceColumn: Location Street Prefix
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Location Street Suffix Code'
+		dataType: string
+		lineageTag: 8364027c-a737-49bc-a19e-f1a3227963da
+		summarizeBy: none
+		sourceColumn: Location Street Suffix Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Location Street Suffix'
+		dataType: string
+		lineageTag: 2e3f88a4-1fda-42fe-897c-d72c392ec129
+		summarizeBy: none
+		sourceColumn: Location Street Suffix
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Location Street Type Code'
+		dataType: string
+		lineageTag: 4394ac5d-284e-43cd-93c2-0c2e9a90ae3c
+		summarizeBy: none
+		sourceColumn: Location Street Type Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Location Street Type'
+		dataType: string
+		lineageTag: 38c0458b-c4d4-4c95-86a8-599a436366c9
+		summarizeBy: none
+		sourceColumn: Location Street Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Location Street or Highway Name'
+		dataType: string
+		lineageTag: 25dd09d9-9cf5-46df-b361-9e4e173e7a18
+		summarizeBy: none
+		sourceColumn: Location Street or Highway Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Location Type Code'
+		dataType: string
+		lineageTag: 6c19e3b1-68ba-4a0b-8e69-3726b374e406
+		summarizeBy: none
+		sourceColumn: Location Type Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Location Type'
+		dataType: string
+		lineageTag: 48d943a8-e301-4b46-bcdf-802262d0a133
+		summarizeBy: none
+		sourceColumn: Location Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Location ZIP'
+		dataType: string
+		lineageTag: c896de6a-adfe-4eea-b8c5-8db54b302390
+		summarizeBy: none
+		sourceColumn: Location ZIP
+
+		annotation SummarizationSetBy = Automatic
+
+	column Longitude
+		dataType: double
+		lineageTag: 168bfa7e-4e5c-412f-8ce4-d5d66d736e0d
+		summarizeBy: sum
+		sourceColumn: Longitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Loss Stop DateTime'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 5a680f2c-01ac-45b8-8026-3b7a37cb297a
+		summarizeBy: none
+		sourceColumn: Loss Stop DateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Map Page'
+		dataType: string
+		lineageTag: c174ddb3-414c-4bb8-a2fc-79b50ce0c330
+		summarizeBy: none
+		sourceColumn: Map Page
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Mixed Use Property'
+		dataType: string
+		lineageTag: ef4e1bc9-7e64-40c7-ab70-8ac6e407aad1
+		summarizeBy: none
+		sourceColumn: Mixed Use Property
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'NFIRS Incident Number'
+		dataType: string
+		lineageTag: 62279e72-c2fd-4140-a15b-438f5979d6dc
+		summarizeBy: none
+		sourceColumn: NFIRS Incident Number
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Officer In Charge Agency Person ID'
+		dataType: string
+		lineageTag: 5bfaf928-a9fc-40c3-93be-de58d3819a1e
+		summarizeBy: none
+		sourceColumn: Officer In Charge Agency Person ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Officer In Charge Assignment'
+		dataType: string
+		lineageTag: 442d871f-8f6f-4862-8e6a-32a90b2b8f10
+		summarizeBy: none
+		sourceColumn: Officer In Charge Assignment
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Officer In Charge DateTime'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 638ed41d-e28e-4bde-946e-aeb76c5715a1
+		summarizeBy: none
+		sourceColumn: Officer In Charge DateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Officer In Charge First Name'
+		dataType: string
+		lineageTag: 107db19c-128d-4c63-afa4-db51195c85e3
+		summarizeBy: none
+		sourceColumn: Officer In Charge First Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Officer In Charge Last Name'
+		dataType: string
+		lineageTag: 868b7c4a-aa9c-493d-89a6-a38e29b8600d
+		summarizeBy: none
+		sourceColumn: Officer In Charge Last Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Officer In Charge Middle Initial'
+		dataType: string
+		lineageTag: 63b3787d-839b-4ef9-92f0-839e30a44179
+		summarizeBy: none
+		sourceColumn: Officer In Charge Middle Initial
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Officer In Charge Name'
+		dataType: string
+		lineageTag: ad019cb6-d7cd-4e6f-9248-cdbdb71da257
+		summarizeBy: none
+		sourceColumn: Officer In Charge Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Officer In Charge Rank'
+		dataType: string
+		lineageTag: 56aeccff-7e3d-4242-bdf4-d05ab9ed7f22
+		summarizeBy: none
+		sourceColumn: Officer In Charge Rank
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Other Apparatus Count'
+		dataType: double
+		formatString: 0
+		lineageTag: 4d661945-8e1c-4030-82db-618ae269267c
+		summarizeBy: sum
+		sourceColumn: Other Apparatus Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Other Personnel Count'
+		dataType: double
+		formatString: 0
+		lineageTag: eb77ae7b-98e7-4255-ae7e-9122d30165af
+		summarizeBy: sum
+		sourceColumn: Other Personnel Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'PSAP Alarm Handling Time'
+		dataType: double
+		formatString: 0
+		lineageTag: 91e18753-f629-4f20-9a73-1b27baeb9a30
+		summarizeBy: sum
+		sourceColumn: PSAP Alarm Handling Time
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'PSAP Received DateTime'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 65d6d001-0af2-4fda-89fc-90a3cdd1e873
+		summarizeBy: none
+		sourceColumn: PSAP Received DateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'PSAP Sent DateTime'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 15fc727b-a1be-48af-9e5c-9919dea3d9e4
+		summarizeBy: none
+		sourceColumn: PSAP Sent DateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'PSAP Total Response Time'
+		dataType: double
+		formatString: 0
+		lineageTag: f7fb7f95-5af3-4e1e-aa08-80f0d7269f2e
+		summarizeBy: sum
+		sourceColumn: PSAP Total Response Time
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'PSAP Turnout Time'
+		dataType: double
+		formatString: 0
+		lineageTag: f36b6587-2b92-46a2-9ddb-af032fc596b0
+		summarizeBy: sum
+		sourceColumn: PSAP Turnout Time
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Property Loss Is None'
+		dataType: string
+		lineageTag: 65ba179a-3af2-46bf-9ff8-6c4cc6f8b218
+		summarizeBy: none
+		sourceColumn: Property Loss Is None
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Property Use Code'
+		dataType: string
+		lineageTag: 2d67d418-d0f8-4cdb-aba1-7bb60f7e02dc
+		summarizeBy: none
+		sourceColumn: Property Use Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Property Use'
+		dataType: string
+		lineageTag: 4093867c-f3bc-45c8-a319-83b75f0a4bb6
+		summarizeBy: none
+		sourceColumn: Property Use
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Property Value Is None'
+		dataType: string
+		lineageTag: 48c7c376-1f77-4e12-b627-0630044ed79e
+		summarizeBy: none
+		sourceColumn: Property Value Is None
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quality Control DateTime'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: edb3178a-f19d-48d4-824c-b9907a344fc6
+		summarizeBy: none
+		sourceColumn: Quality Control DateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quality Control First Name'
+		dataType: string
+		lineageTag: ab66a517-3208-44df-8bc2-275bf10e11f3
+		summarizeBy: none
+		sourceColumn: Quality Control First Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quality Control Last Name'
+		dataType: string
+		lineageTag: 5fd471d9-b5ed-4062-ba29-d48ddcbb33e5
+		summarizeBy: none
+		sourceColumn: Quality Control Last Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quality Control Name'
+		dataType: string
+		lineageTag: 891f57b3-77f3-4d46-96fe-49fd7f78215b
+		summarizeBy: none
+		sourceColumn: Quality Control Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Report Writer Agency Person ID'
+		dataType: string
+		lineageTag: 9e795ad0-b191-47a3-9a8a-6c1ac10c641a
+		summarizeBy: none
+		sourceColumn: Report Writer Agency Person ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Report Writer Assignment'
+		dataType: string
+		lineageTag: 34810a24-f7d7-4693-83bb-f435b1d1e739
+		summarizeBy: none
+		sourceColumn: Report Writer Assignment
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Report Writer DateTime'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 2ef71d21-384f-46bc-8dcd-479ef7bad181
+		summarizeBy: none
+		sourceColumn: Report Writer DateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Report Writer First Name'
+		dataType: string
+		lineageTag: b23256c1-7224-4ef4-b869-95c8001b8985
+		summarizeBy: none
+		sourceColumn: Report Writer First Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Report Writer Last Name'
+		dataType: string
+		lineageTag: c53f389d-98e0-405c-a725-9dcd385195ea
+		summarizeBy: none
+		sourceColumn: Report Writer Last Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Report Writer Middle Initial'
+		dataType: string
+		lineageTag: 3714d5f1-3054-4424-9443-7b4b02742f7d
+		summarizeBy: none
+		sourceColumn: Report Writer Middle Initial
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Report Writer Name'
+		dataType: string
+		lineageTag: 665b253b-8c32-49d4-86c3-033dd7155dd1
+		summarizeBy: none
+		sourceColumn: Report Writer Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Report Writer Rank'
+		dataType: string
+		lineageTag: e67a6a50-ca86-462c-ad13-bcb4e497d96b
+		summarizeBy: none
+		sourceColumn: Report Writer Rank
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Resources Include Mutual Aid'
+		dataType: string
+		lineageTag: 2cfc2ecc-636f-4a03-b66d-85469d149425
+		summarizeBy: none
+		sourceColumn: Resources Include Mutual Aid
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Response Time Alarm To Arrival'
+		dataType: double
+		formatString: 0
+		lineageTag: 6c719ca4-4d31-45af-935c-b605bef9e537
+		summarizeBy: sum
+		sourceColumn: Response Time Alarm To Arrival
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Response Time PSAP To Arrival'
+		dataType: double
+		formatString: 0
+		lineageTag: 8589501a-3531-4740-98e1-e21047dff0c0
+		summarizeBy: sum
+		sourceColumn: Response Time PSAP To Arrival
+
+		annotation SummarizationSetBy = Automatic
+
+	column Shift
+		dataType: string
+		lineageTag: ef40556c-fed0-470a-ad04-70d07d2b6278
+		summarizeBy: none
+		sourceColumn: Shift
+
+		annotation SummarizationSetBy = Automatic
+
+	column Station
+		dataType: string
+		lineageTag: adec9716-e1eb-498f-bf1a-1cf4e0b5d862
+		summarizeBy: none
+		sourceColumn: Station
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Suppression Apparatus Count'
+		dataType: string
+		lineageTag: 884dbe4b-83d0-4c07-a529-ad85098773ef
+		summarizeBy: none
+		sourceColumn: Suppression Apparatus Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Suppression Personnel Count'
+		dataType: string
+		lineageTag: efc3e68c-b3ad-434c-a645-fe002d3e36d9
+		summarizeBy: none
+		sourceColumn: Suppression Personnel Count
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total On Scene Time'
+		dataType: double
+		formatString: 0
+		lineageTag: 5e0f0766-b0de-4f18-9281-c9accdfd3484
+		summarizeBy: sum
+		sourceColumn: Total On Scene Time
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Time Alarm to Last Unit Cleared'
+		dataType: double
+		formatString: 0
+		lineageTag: 5057815e-6ad8-49ec-a409-6612403f6989
+		summarizeBy: sum
+		sourceColumn: Total Time Alarm to Last Unit Cleared
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Time Dispatch Notified to Last Unit Cleared'
+		dataType: double
+		formatString: 0
+		lineageTag: 947cf6f3-adf3-4eb4-bf32-5c59e1131220
+		summarizeBy: sum
+		sourceColumn: Total Time Dispatch Notified to Last Unit Cleared
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Time PSAP Received to Last Unit Cleared'
+		dataType: double
+		formatString: 0
+		lineageTag: 5d69ee61-0f9c-4e6b-8bc5-f9a4792c6926
+		summarizeBy: sum
+		sourceColumn: Total Time PSAP Received to Last Unit Cleared
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Water On Fire DateTime'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 2dc4b724-20e8-4701-a49e-83068973bbc9
+		summarizeBy: none
+		sourceColumn: Water On Fire DateTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Working Fire'
+		dataType: string
+		lineageTag: 105dcfb2-fc4f-4495-ab2c-0a39d84addb1
+		summarizeBy: none
+		sourceColumn: Working Fire
+
+		annotation SummarizationSetBy = Automatic
+
+	column AlarmTimeToMinute
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 7e47db54-f62e-4208-9619-5e22b78e5bf9
+		summarizeBy: none
+		sourceColumn: AlarmTimeToMinute
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column MaxModDateTIme
+		dataType: string
+		lineageTag: 29f98855-6cc0-4da4-9f7d-635f642b2dd5
+		summarizeBy: none
+		sourceColumn: MaxModDateTIme
+
+		annotation SummarizationSetBy = Automatic
+
+	column IncidentDateNum
+		dataType: string
+		lineageTag: e574cc35-0689-4d4e-99d4-16cc76652b47
+		summarizeBy: none
+		sourceColumn: IncidentDateNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Alarm Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: edcc02e5-7c5a-4f02-b674-c5c4c1c86a3e
+		summarizeBy: none
+		sourceColumn: Alarm Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'IncidentID.1'
+		dataType: string
+		lineageTag: bb0fcbf0-2826-4980-8d57-626cd56d0912
+		summarizeBy: none
+		sourceColumn: IncidentID.1
+
+		annotation SummarizationSetBy = Automatic
+
+	column IncidentDateText
+		dataType: string
+		lineageTag: e0d0594e-d25d-4fff-91c8-a02877ebb1ae
+		summarizeBy: none
+		sourceColumn: IncidentDateText
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Alarm Time'
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 16838532-814d-47bd-a303-82f22f522044
+		summarizeBy: none
+		sourceColumn: Alarm Time
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column LastModified
+		dataType: string
+		lineageTag: 10ff5716-8176-4dad-b030-c8969844b7a2
+		summarizeBy: none
+		sourceColumn: LastModified
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Incidents Core' = m
+		mode: import
+		source = ```
+				let
+				    Source = SharePoint.Files("https://foothillsfirepd.sharepoint.com/sites/OfficeOperations", [ApiVersion = 15]),
+				    #"Uppercased Text" = Table.TransformColumns(Source,{{"Name", Text.Upper, type text}, {"Extension", Text.Upper, type text}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Uppercased Text", each Text.Contains([Folder Path], SourceData)),
+				    #"Filtered Hidden Files1" = Table.SelectRows(#"Filtered Rows", each [Attributes]?[Hidden]? <> true),
+				    #"Filtered Rows1" = Table.SelectRows(#"Filtered Hidden Files1", each Text.Contains([Name], "INCIDENTS CORE")),
+				    #"Filtered Rows2" = Table.SelectRows(#"Filtered Rows1", each ([Extension] = ".CSV")),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Filtered Rows2",{"Content"}),
+				    #"Filtered Hidden Files2" = Table.SelectRows(#"Removed Other Columns", each [Attributes]?[Hidden]? <> true),
+				    #"Added Custom" = Table.AddColumn(#"Filtered Hidden Files2", "Custom", each Csv.Document([Content])),
+				    #"Removed Columns5" = Table.RemoveColumns(#"Added Custom",{"Content"}),
+				    #"Expanded Custom" = Table.ExpandTableColumn(#"Removed Columns5", "Custom", {"Column1", "Column2", "Column3", "Column4", "Column5", "Column6", "Column7", "Column8", "Column9", "Column10", "Column11", "Column12", "Column13", "Column14", "Column15", "Column16", "Column17", "Column18", "Column19", "Column20", "Column21", "Column22", "Column23", "Column24", "Column25", "Column26", "Column27", "Column28", "Column29", "Column30", "Column31", "Column32", "Column33", "Column34", "Column35", "Column36", "Column37", "Column38", "Column39", "Column40", "Column41", "Column42", "Column43", "Column44", "Column45", "Column46", "Column47", "Column48", "Column49", "Column50", "Column51", "Column52", "Column53", "Column54", "Column55", "Column56", "Column57", "Column58", "Column59", "Column60", "Column61", "Column62", "Column63", "Column64", "Column65", "Column66", "Column67", "Column68", "Column69", "Column70", "Column71", "Column72", "Column73", "Column74", "Column75", "Column76", "Column77", "Column78", "Column79", "Column80", "Column81", "Column82", "Column83", "Column84", "Column85", "Column86", "Column87", "Column88", "Column89", "Column90", "Column91", "Column92", "Column93", "Column94", "Column95", "Column96", "Column97", "Column98", "Column99", "Column100", "Column101", "Column102", "Column103", "Column104", "Column105", "Column106", "Column107", "Column108", "Column109", "Column110", "Column111", "Column112", "Column113", "Column114", "Column115", "Column116", "Column117", "Column118", "Column119", "Column120", "Column121", "Column122", "Column123", "Column124", "Column125", "Column126", "Column127", "Column128", "Column129", "Column130", "Column131", "Column132", "Column133", "Column134", "Column135", "Column136", "Column137", "Column138", "Column139", "Column140", "Column141", "Column142", "Column143", "Column144", "Column145", "Column146", "Column147", "Column148", "Column149", "Column150", "Column151", "Column152", "Column153", "Column154", "Column155", "Column156", "Column157", "Column158", "Column159", "Column160", "Column161", "Column162", "Column163", "Column164", "Column165", "Column166", "Column167", "Column168", "Column169", "Column170", "Column171", "Column172", "Column173", "Column174", "Column175", "Column176", "Column177", "Column178", "Column179", "Column180", "Column181", "Column182", "Column183", "Column184", "Column185", "Column186", "Column187", "Column188", "Column189", "Column190", "Column191", "Column192", "Column193", "Column194"}, {"Column1", "Column2", "Column3", "Column4", "Column5", "Column6", "Column7", "Column8", "Column9", "Column10", "Column11", "Column12", "Column13", "Column14", "Column15", "Column16", "Column17", "Column18", "Column19", "Column20", "Column21", "Column22", "Column23", "Column24", "Column25", "Column26", "Column27", "Column28", "Column29", "Column30", "Column31", "Column32", "Column33", "Column34", "Column35", "Column36", "Column37", "Column38", "Column39", "Column40", "Column41", "Column42", "Column43", "Column44", "Column45", "Column46", "Column47", "Column48", "Column49", "Column50", "Column51", "Column52", "Column53", "Column54", "Column55", "Column56", "Column57", "Column58", "Column59", "Column60", "Column61", "Column62", "Column63", "Column64", "Column65", "Column66", "Column67", "Column68", "Column69", "Column70", "Column71", "Column72", "Column73", "Column74", "Column75", "Column76", "Column77", "Column78", "Column79", "Column80", "Column81", "Column82", "Column83", "Column84", "Column85", "Column86", "Column87", "Column88", "Column89", "Column90", "Column91", "Column92", "Column93", "Column94", "Column95", "Column96", "Column97", "Column98", "Column99", "Column100", "Column101", "Column102", "Column103", "Column104", "Column105", "Column106", "Column107", "Column108", "Column109", "Column110", "Column111", "Column112", "Column113", "Column114", "Column115", "Column116", "Column117", "Column118", "Column119", "Column120", "Column121", "Column122", "Column123", "Column124", "Column125", "Column126", "Column127", "Column128", "Column129", "Column130", "Column131", "Column132", "Column133", "Column134", "Column135", "Column136", "Column137", "Column138", "Column139", "Column140", "Column141", "Column142", "Column143", "Column144", "Column145", "Column146", "Column147", "Column148", "Column149", "Column150", "Column151", "Column152", "Column153", "Column154", "Column155", "Column156", "Column157", "Column158", "Column159", "Column160", "Column161", "Column162", "Column163", "Column164", "Column165", "Column166", "Column167", "Column168", "Column169", "Column170", "Column171", "Column172", "Column173", "Column174", "Column175", "Column176", "Column177", "Column178", "Column179", "Column180", "Column181", "Column182", "Column183", "Column184", "Column185", "Column186", "Column187", "Column188", "Column189", "Column190", "Column191", "Column192", "Column193", "Column194"}),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Expanded Custom", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Exposure Number", type text}, {"At Patient DateTime", type text}, {"Basic Action Taken 1 NFIRS Code", type text}, {"Mixed Use Property NFIRS Code", type text}, {"Owner First Name", type text}, {"Owner Phone", type text}, {"Owner Apartment Number", type text}, {"Intervention Time Arrival To Water On Fire", type text}, {"Owner Street Suffix", type text}, {"Quality Control Last Name", type text}, {"Location Street Suffix", type text}, {"Basic Action Taken 3 Code", type text}, {"Owner State Code", type text}, {"Owner Street Prefix", type text}, {"Owner Last Name", type text}, {"Location Street Type", type text}, {"Officer In Charge Name", type text}, {"Aid Given Or Received Code", type text}, {"Owner Involved In Incident", type text}, {"Dispatch Run Number", type text}, {"Incident Type", type text}, {"EMS Personnel Count", type text}, {"Property Use Code", type text}, {"Dispatch Total Response Time", type text}, {"Officer In Charge Rank", type text}, {"CAD Notes", type text}, {"Report Writer DateTime", type text}, {"Critical Incident Circumstance 3 Code", type text}, {"Quality Control Name", type text}, {"Owner Name Suffix NFIRS Code", type text}, {"Hazardous Materials Released NFIRS Code", type text}, {"Incident Type Code", type text}, {"Property Use NFIRS Code", type text}, {"Location City", type text}, {"Owner Middle Initial", type text}, {"Location State Code", type text}, {"Total Time PSAP Received to Last Unit Cleared", type text}, {"Officer In Charge DateTime", type text}, {"NFIRS Incident Number", type text}, {"Contents Loss Is None", type text}, {"Owner Total Insurance Amount", type text}, {"Report Writer Name", type text}, {"Estimated Content Loss", type text}, {"Agency Name", type text}, {"Owner Address Same As Incident", type text}, {"Location Street Address", type text}, {"Incident Number", type text}, {"Report Writer Agency Person ID", type text}, {"Officer In Charge Last Name", type text}, {"Alarm Processing Time", type text}, {"Working Fire", type text}, {"Arrival To Controlled", type text}, {"Census Tract", type text}, {"Response Time Alarm To Arrival", type text}, {"Basic Action Taken 2 NFIRS Code", type text}, {"Location Street Type NFIRS Code", type text}, {"Owner Name", type text}, {"Arrival To Loss Stop", type text}, {"Incident Date Offset", type text}, {"PSAP Received DateTime", type text}, {"Estimated Property Value", type text}, {"Alarm Transfer Time", type text}, {"Officer In Charge Agency Person ID", type text}, {"Other Personnel Count", type text}, {"Location Street or Highway Name", type text}, {"Report Writer First Name", type text}, {"Basic Action Taken 2 Code", type text}, {"Other Apparatus Count", type text}, {"Owner Name Suffix", type text}, {"Owner State NFIRS Code", type text}, {"Location Street Suffix Code", type text}, {"PSAP Alarm Handling Time", type text}, {"Owner Business Name", type text}, {"Owner Street Or Highway Name", type text}, {"Alarm Handling Time", type text}, {"Location Type Code", type text}, {"Location Type NFIRS Code", type text}, {"Location Street Prefix Code", type text}, {"Owner Street Type NFIRS Code", type text}, {"Agency Login ID", type text}, {"Report Writer Rank", type text}, {"Owner Street Address", type text}, {"Hazardous Materials Released", type text}, {"Detector Alerted Occupants", type text}, {"Critical Incident", type text}, {"Total Time Alarm to Last Unit Cleared", type text}, {"Location Street Number or Mile Post", type text}, {"IncidentID", type text}, {"Owner Insurance Company", type text}, {"Basic Action Taken 1", type text}, {"Owner Title Code NFIRS", type text}, {"Aid Given Or Received", type text}, {"Mixed Use Property", type text}, {"Owner Street Suffix NFIRS Code", type text}, {"Owner County", type text}, {"Critical Incident Circumstance 2 Code", type text}, {"Location State NFIRS Code", type text}, {"Is Third Party Import", type text}, {"Critical Incident Circumstance 1 NFIRS Code", type text}, {"Resources Include Mutual Aid", type text}, {"Incident Controlled DateTime", type text}, {"Estimated Content Value", type text}, {"Map Page", type text}, {"Suppression Apparatus Count", type text}, {"Population Density", type text}, {"PSAP Total Response Time", type text}, {"Location Street Suffix NFIRS Code", type text}, {"Report Writer Assignment", type text}, {"Owner Street Prefix NFIRS Code", type text}, {"Owner Title", type text}, {"Basic Action Taken 3", type text}, {"Shift", type text}, {"Response Time PSAP To Arrival", type text}, {"Mixed Use Property Code", type text}, {"Aided Agency Incident Number", type text}, {"Incident Type Group", type text}, {"Last Record Loaded Date", type text}, {"Owner Post Office Box", type text}, {"Basic Action Taken 1 Code", type text}, {"Officer In Charge First Name", type text}, {"Total Time Dispatch Notified to Last Unit Cleared", type text}, {"Critical Incident Circumstance 1", type text}, {"District", type text}, {"Owner Street Prefix Code", type text}, {"Owner Title Code", type text}, {"Detector Alerted Occupants Code", type text}, {"Critical Incident Circumstance 3 NFIRS Code", type text}, {"Injury or Death", type text}, {"Incident Date", type text}, {"Owner ZIP", type text}, {"First Arriving Travel Time", type text}, {"Incident Type NFIRS Code", type text}, {"Location Street Prefix NFIRS Code", type text}, {"Quality Control DateTime", type text}, {"Location Apartment Number", type text}, {"Owner Date of Birth", type text}, {"Initial Dispatch Code", type text}, {"Location ZIP", type text}, {"Location Cross Street, USNG, or Directions", type text}, {"PSAP Sent DateTime", type datetime}, {"Loss Stop DateTime", type text}, {"Owner Name Suffix Code", type text}, {"Incident Last Modified DateTime", type text}, {"Critical Incident Circumstance 2", type text}, {"Arrival DateTime", type text}, {"Quality Control First Name", type text}, {"Longitude", type text}, {"Aided Agency", type text}, {"Latitude", type text}, {"Alarm DateTime", type text}, {"Alarm Count", type text}, {"Owner Street Suffix Code", type text}, {"Critical Incident Circumstance 2 NFIRS Code", type text}, {"Aid Given Or Received NFIRS Code", type text}, {"Contents Value Is None", type text}, {"Report Writer Last Name", type text}, {"Station", type text}, {"Owner State", type text}, {"Critical Incident Team Mobilized", type text}, {"Total On Scene Time", type text}, {"Location Street Type Code", type text}, {"Water On Fire DateTime", type text}, {"Property Loss Is None", type text}, {"Estimated Property Loss", type text}, {"Location Type", type text}, {"Basic Action Taken 3 NFIRS Code", type text}, {"Report Writer Middle Initial", type text}, {"Basic Action Taken 2", type text}, {"Location State", type text}, {"Property Value Is None", type text}, {"Is Locked", type text}, {"Critical Incident Circumstance 1 Code", type text}, {"Officer In Charge Middle Initial", type text}, {"Critical Incident Circumstance 3", type text}, {"ExposureID", type text}, {"Owner Street Number or Mile Post", type text}, {"Suppression Personnel Count", type text}, {"Owner City", type text}, {"Dispatch Notified Alarm Handling Time", type text}, {"Last Unit Cleared DateTime", type text}, {"Intervention Time Arrival To At Patient", type text}, {"Owner Street Type Code", type text}, {"COVID-19 Was A Factor", type text}, {"PSAP Turnout Time", type text}, {"Agency FDID", type text}, {"Is Active", type text}, {"Property Use", type text}, {"EMS Apparatus Count", type text}, {"Detector Alerted Occupants NFIRS Code", type text}, {"Officer In Charge Assignment", type text}, {"Location Street Prefix", type text}, {"Owner Street Type", type text}, {"Hazardous Materials Released Code", type text}, {"Location County", type text}}),
+				    #"Removed Errors" = Table.RemoveRowsWithErrors(#"Changed Type", {"PSAP Sent DateTime"}),
+				    #"Duplicated Column" = Table.DuplicateColumn(#"Removed Errors", "Alarm DateTime", "Alarm DateTime - Copy"),
+				    #"Renamed Columns" = Table.RenameColumns(#"Duplicated Column",{{"Alarm DateTime - Copy", "Alarm Date"}}),
+				    #"Parsed Date" = Table.TransformColumns(#"Renamed Columns",{{"Alarm Date", each Date.From(DateTimeZone.From(_)), type date}}),
+				    #"Duplicated Column1" = Table.DuplicateColumn(#"Parsed Date", "Alarm DateTime", "Alarm DateTime - Copy"),
+				    ColumnsRenamed = Table.RenameColumns(#"Duplicated Column1",{{"Alarm DateTime - Copy", "Alarm Time"}}),
+				    
+				    ReorderColumns = Table.ReorderColumns(
+				        ColumnsRenamed, List.InsertRange(
+				            List.RemoveItems(
+				                List.Sort(
+				                    Table.ColumnNames(ColumnsRenamed)
+				                    ),
+				                {"IncidentID","Alarm DateTime"}),
+				            0,
+				            {"IncidentID","Alarm DateTime"}
+				        )
+				    ),
+				    #"Parsed Time" = Table.TransformColumns(ReorderColumns,{{"Alarm Time", each Time.From(DateTimeZone.From(_)), type time}}),
+				    #"Added Conditional Column" = Table.AddColumn(#"Parsed Time", "Custom", each Date.ToText([Alarm Date], "yyyyMMdd") & " - " & [Incident Number], type text),
+				    #"Duplicated Column2" = Table.AddColumn(#"Added Conditional Column", "Incident Number - Copy", each if 
+				    
+				        ((Text.StartsWith([Incident Number], "FH") and [Alarm Date] < #date(2024, 4, 2) 
+				        or 
+				        ( [Is Third Party Import]= "true") and [Alarm Date] > #date(2024, 4, 2))) then 1 else 0, type any),
+				    
+				    
+				    #"Filtered Rows3" = Table.SelectRows(#"Duplicated Column2", each true),
+				    #"Sorted Rows1" = Table.Sort(#"Filtered Rows3",{{"Alarm Date", Order.Ascending}}),
+				    #"Duplicated Column3" = Table.AddColumn(#"Sorted Rows1", "AlarmTimeToMinute", each Text.From([Alarm Time], "en-US"), type text),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Duplicated Column3",{{"AlarmTimeToMinute", type time}}),
+				    #"Renamed Columns3" = Table.RenameColumns(#"Changed Type1",{{"Custom", "IncidentNum"}, {"Incident Date", "IncidentDateText"}}),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Renamed Columns3",{"Mixed Use Property NFIRS Code", "Mixed Use Property Code", "Incident Number - Copy","Agency Login ID", "Agency Name", "Aid Given Or Received NFIRS Code", "Alarm Count", "Alarm Handling Time", "Alarm Processing Time", "Alarm Transfer Time", "Arrival To Controlled", "Arrival To Loss Stop", "At Patient DateTime", "Basic Action Taken 1 NFIRS Code", "Basic Action Taken 2 NFIRS Code", "Basic Action Taken 3 NFIRS Code", "COVID-19 Was A Factor", "Census Tract", "Critical Incident Circumstance 1 NFIRS Code", "Critical Incident Circumstance 2 Code", "Critical Incident Circumstance 2 NFIRS Code", "Critical Incident Circumstance 3 Code", "Critical Incident Circumstance 3 NFIRS Code", "Critical Incident Circumstance 3", "Location State NFIRS Code", "Location Street Prefix NFIRS Code", "Location Street Suffix NFIRS Code", "Location Street Type NFIRS Code", "Location Type NFIRS Code","Owner Address Same As Incident", "Owner Apartment Number", "Owner Business Name", "Owner City", "Owner County", "Owner Date of Birth", "Owner First Name", "Owner Insurance Company", "Owner Involved In Incident", "Owner Last Name", "Owner Middle Initial", "Owner Name Suffix Code", "Owner Name Suffix NFIRS Code", "Owner Name Suffix", "Owner Name", "Owner Phone", "Owner Post Office Box", "Owner State Code", "Owner State NFIRS Code", "Owner State", "Owner Street Address", "Owner Street Number or Mile Post", "Owner Street Or Highway Name", "Owner Street Prefix Code", "Owner Street Prefix NFIRS Code", "Owner Street Prefix", "Owner Street Suffix Code", "Owner Street Suffix NFIRS Code", "Owner Street Suffix", "Owner Street Type Code", "Owner Street Type NFIRS Code", "Owner Street Type", "Owner Title Code NFIRS", "Owner Title Code", "Owner Title", "Owner Total Insurance Amount", "Owner ZIP","Population Density", "Property Use NFIRS Code"
+				}),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Removed Columns1",{{"Loss Stop DateTime", type datetime}}),
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Changed Type2",{{"Officer In Charge DateTime", type datetime}, {"Other Apparatus Count", Int64.Type}, {"Other Personnel Count", Int64.Type}}),
+				    #"Changed Type4" = Table.TransformColumnTypes(#"Changed Type3",{{"PSAP Received DateTime", type datetime}, {"PSAP Alarm Handling Time", Int64.Type}, {"PSAP Sent DateTime", type datetime}, {"PSAP Total Response Time", Int64.Type}, {"PSAP Turnout Time", Int64.Type}}),
+				    #"Changed Type5" = Table.TransformColumnTypes(#"Changed Type4",{{"Quality Control DateTime", type datetime}, {"Response Time Alarm To Arrival", Int64.Type}, {"Response Time PSAP To Arrival", Int64.Type}, {"Total On Scene Time", Int64.Type}, {"Total Time Alarm to Last Unit Cleared", Int64.Type}, {"Total Time Dispatch Notified to Last Unit Cleared", Int64.Type}, {"Total Time PSAP Received to Last Unit Cleared", Int64.Type}, {"Water On Fire DateTime", type datetime}}),
+				    #"Renamed Columns4" = Table.RenameColumns(#"Changed Type5",{{"IncidentNum", "IncidentDateNum"}}),
+				    #"Changed Type6" = Table.TransformColumnTypes(#"Renamed Columns4",{{"Last Unit Cleared DateTime", type datetime}, {"Last Record Loaded Date", type datetime}, {"Incident Controlled DateTime", type datetime}, {"Dispatch Total Response Time", Int64.Type}, {"Dispatch Notified Alarm Handling Time", Int64.Type}, {"Arrival DateTime", type datetime}, {"Report Writer DateTime", type datetime}}),
+				
+				    // #"Reordered Columns4" = Table.ReorderColumns(#"Changed Type6",{"IncidentDateNum", "Alarm Date", "Incident Number", , "IncidentID", "Incident Last Modified DateTime", "IncidentDateText", "Alarm DateTime", "Alarm Time", "AlarmTimeToMinute", "Agency FDID", "Aid Given Or Received Code", "Aid Given Or Received", "Aided Agency Incident Number", "Aided Agency", "Arrival DateTime", "Basic Action Taken 1 Code", "Basic Action Taken 1", "Basic Action Taken 2 Code", "Basic Action Taken 2", "Basic Action Taken 3 Code", "Basic Action Taken 3", "CAD Notes", "Contents Loss Is None", "Contents Value Is None", "Critical Incident Circumstance 1 Code", "Critical Incident Circumstance 1", "Critical Incident Circumstance 2", "Critical Incident Team Mobilized", "Critical Incident", "Detector Alerted Occupants Code", "Detector Alerted Occupants NFIRS Code", "Detector Alerted Occupants", "Dispatch Notified Alarm Handling Time", "Dispatch Run Number", "Dispatch Total Response Time", "District", "EMS Apparatus Count", "EMS Personnel Count", "Estimated Content Loss", "Estimated Content Value", "Estimated Property Loss", "Estimated Property Value", "Exposure Number", "ExposureID", "First Arriving Travel Time", "Hazardous Materials Released Code", "Hazardous Materials Released NFIRS Code", "Hazardous Materials Released", "Incident Controlled DateTime", "Incident Date Offset", "Incident Type Code", "Incident Type NFIRS Code", "Incident Type", "Initial Dispatch Code", "Injury or Death", "Intervention Time Arrival To At Patient", "Intervention Time Arrival To Water On Fire", "Is Active", "Is Locked", "Is Third Party Import", "Last Record Loaded Date", "Last Unit Cleared DateTime", "Latitude", "Longitude", "Location Apartment Number", "Location City", "Location County", "Location Cross Street, USNG, or Directions", "Location State Code", "Location State", "Location Street Address", "Location Street Number or Mile Post", "Location Street Prefix Code", "Location Street Prefix", "Location Street Suffix Code", "Location Street Suffix", "Location Street Type Code", "Location Street Type", "Location Street or Highway Name", "Location Type Code", "Location Type", "Location ZIP", "Loss Stop DateTime", "Map Page", "Mixed Use Property", "NFIRS Incident Number", "Officer In Charge Agency Person ID", "Officer In Charge Assignment", "Officer In Charge DateTime", "Officer In Charge First Name", "Officer In Charge Last Name", "Officer In Charge Middle Initial", "Officer In Charge Name", "Officer In Charge Rank", "Other Apparatus Count", "Other Personnel Count", "PSAP Alarm Handling Time", "PSAP Received DateTime", "PSAP Sent DateTime", "PSAP Total Response Time", "PSAP Turnout Time", "Property Loss Is None", "Property Use Code", "Property Use", "Property Value Is None", "Quality Control DateTime", "Quality Control First Name", "Quality Control Last Name", "Quality Control Name", "Report Writer Agency Person ID", "Report Writer Assignment", "Report Writer DateTime", "Report Writer First Name", "Report Writer Last Name", "Report Writer Middle Initial", "Report Writer Name", "Report Writer Rank", "Resources Include Mutual Aid", "Response Time Alarm To Arrival", "Response Time PSAP To Arrival", "Shift", "Station", "Suppression Apparatus Count", "Suppression Personnel Count", "Total On Scene Time", "Total Time Alarm to Last Unit Cleared", "Total Time Dispatch Notified to Last Unit Cleared", "Total Time PSAP Received to Last Unit Cleared", "Water On Fire DateTime", "Working Fire"}),
+				 
+				 
+				    ReorderColumns4 = Table.ReorderColumns(
+				        #"Changed Type6", List.InsertRange(
+				            List.RemoveItems(
+				                List.Sort(
+				                    Table.ColumnNames(#"Changed Type6")
+				                    ),
+				                {"IncidentDateNum","IncidentID","Alarm DateTime","Incident Type Group", "Incident Last Modified DateTime"}),
+				            0,
+				            {"IncidentDateNum","IncidentID","Alarm DateTime","Incident Type Group", "Incident Last Modified DateTime"}
+				        )
+				    ),
+				    #"Changed Type7" = Table.TransformColumnTypes(ReorderColumns4,{{"Latitude", type number}, {"Longitude", type number}}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Changed Type7",0,null,Replacer.ReplaceValue,{"Latitude"}),
+				    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value",0,null,Replacer.ReplaceValue,{"Longitude"}),
+				    #"Sorted Rows" = Table.Sort(#"Replaced Value1",{{"Incident Last Modified DateTime", Order.Descending}}),
+				    #"Grouped Rows" = Table.Group(#"Sorted Rows", {"IncidentID"}, {{"MaxModDateTIme", each List.Max([Incident Last Modified DateTime]), type nullable text}, {"AllRows", each _, type table [IncidentDateNum=text, Alarm Date=date, Incident Number=nullable text, Incident Type Group=nullable text, IncidentID=nullable text, Incident Last Modified DateTime=nullable text, IncidentDateText=nullable text, Alarm DateTime=nullable text, Alarm Time=time, AlarmTimeToMinute=nullable time, Agency FDID=nullable text, Aid Given Or Received Code=nullable text, Aid Given Or Received=nullable text, Aided Agency Incident Number=nullable text, Aided Agency=nullable text, Arrival DateTime=nullable datetime, Basic Action Taken 1 Code=nullable text, Basic Action Taken 1=nullable text, Basic Action Taken 2 Code=nullable text, Basic Action Taken 2=nullable text, Basic Action Taken 3 Code=nullable text, Basic Action Taken 3=nullable text, CAD Notes=nullable text, Contents Loss Is None=nullable text, Contents Value Is None=nullable text, Critical Incident Circumstance 1 Code=nullable text, Critical Incident Circumstance 1=nullable text, Critical Incident Circumstance 2=nullable text, Critical Incident Team Mobilized=nullable text, Critical Incident=nullable text, Detector Alerted Occupants Code=nullable text, Detector Alerted Occupants NFIRS Code=nullable text, Detector Alerted Occupants=nullable text, Dispatch Notified Alarm Handling Time=nullable number, Dispatch Run Number=nullable text, Dispatch Total Response Time=nullable number, District=nullable text, EMS Apparatus Count=nullable text, EMS Personnel Count=nullable text, Estimated Content Loss=nullable text, Estimated Content Value=nullable text, Estimated Property Loss=nullable text, Estimated Property Value=nullable text, Exposure Number=nullable text, ExposureID=nullable text, First Arriving Travel Time=nullable text, Hazardous Materials Released Code=nullable text, Hazardous Materials Released NFIRS Code=nullable text, Hazardous Materials Released=nullable text, Incident Controlled DateTime=nullable datetime, Incident Date Offset=nullable text, Incident Type Code=nullable text, Incident Type NFIRS Code=nullable text, Incident Type=nullable text, Initial Dispatch Code=nullable text, Injury or Death=nullable text, Intervention Time Arrival To At Patient=nullable text, Intervention Time Arrival To Water On Fire=nullable text, Is Active=nullable text, Is Locked=nullable text, Is Third Party Import=nullable text, Last Record Loaded Date=nullable datetime, Last Unit Cleared DateTime=nullable datetime, Latitude=nullable number, Longitude=nullable number, Location Apartment Number=nullable text, Location City=nullable text, Location County=nullable text, #"Location Cross Street, USNG, or Directions"=nullable text, Location State Code=nullable text, Location State=nullable text, Location Street Address=nullable text, Location Street Number or Mile Post=nullable text, Location Street Prefix Code=nullable text, Location Street Prefix=nullable text, Location Street Suffix Code=nullable text, Location Street Suffix=nullable text, Location Street Type Code=nullable text, Location Street Type=nullable text, Location Street or Highway Name=nullable text, Location Type Code=nullable text, Location Type=nullable text, Location ZIP=nullable text, Loss Stop DateTime=nullable datetime, Map Page=nullable text, Mixed Use Property=nullable text, NFIRS Incident Number=nullable text, Officer In Charge Agency Person ID=nullable text, Officer In Charge Assignment=nullable text, Officer In Charge DateTime=nullable datetime, Officer In Charge First Name=nullable text, Officer In Charge Last Name=nullable text, Officer In Charge Middle Initial=nullable text, Officer In Charge Name=nullable text, Officer In Charge Rank=nullable text, Other Apparatus Count=nullable number, Other Personnel Count=nullable number, PSAP Alarm Handling Time=nullable number, PSAP Received DateTime=nullable datetime, PSAP Sent DateTime=nullable datetime, PSAP Total Response Time=nullable number, PSAP Turnout Time=nullable number, Property Loss Is None=nullable text, Property Use Code=nullable text, Property Use=nullable text, Property Value Is None=nullable text, Quality Control DateTime=nullable datetime, Quality Control First Name=nullable text, Quality Control Last Name=nullable text, Quality Control Name=nullable text, Report Writer Agency Person ID=nullable text, Report Writer Assignment=nullable text, Report Writer DateTime=nullable datetime, Report Writer First Name=nullable text, Report Writer Last Name=nullable text, Report Writer Middle Initial=nullable text, Report Writer Name=nullable text, Report Writer Rank=nullable text, Resources Include Mutual Aid=nullable text, Response Time Alarm To Arrival=nullable number, Response Time PSAP To Arrival=nullable number, Shift=nullable text, Station=nullable text, Suppression Apparatus Count=nullable text, Suppression Personnel Count=nullable text, Total On Scene Time=nullable number, Total Time Alarm to Last Unit Cleared=nullable number, Total Time Dispatch Notified to Last Unit Cleared=nullable number, Total Time PSAP Received to Last Unit Cleared=nullable number, Water On Fire DateTime=nullable datetime, Working Fire=nullable text]}}),
+				    #"Expanded AllRows" = Table.ExpandTableColumn(#"Grouped Rows", "AllRows", {"IncidentDateNum", "Alarm Date", "Incident Number", "Incident Type Group", "IncidentID", "Incident Last Modified DateTime", "IncidentDateText", "Alarm DateTime", "Alarm Time", "AlarmTimeToMinute", "Agency FDID", "Aid Given Or Received Code", "Aid Given Or Received", "Aided Agency Incident Number", "Aided Agency", "Arrival DateTime", "Basic Action Taken 1 Code", "Basic Action Taken 1", "Basic Action Taken 2 Code", "Basic Action Taken 2", "Basic Action Taken 3 Code", "Basic Action Taken 3", "CAD Notes", "Contents Loss Is None", "Contents Value Is None", "Critical Incident Circumstance 1 Code", "Critical Incident Circumstance 1", "Critical Incident Circumstance 2", "Critical Incident Team Mobilized", "Critical Incident", "Detector Alerted Occupants Code", "Detector Alerted Occupants NFIRS Code", "Detector Alerted Occupants", "Dispatch Notified Alarm Handling Time", "Dispatch Run Number", "Dispatch Total Response Time", "District", "EMS Apparatus Count", "EMS Personnel Count", "Estimated Content Loss", "Estimated Content Value", "Estimated Property Loss", "Estimated Property Value", "Exposure Number", "ExposureID", "First Arriving Travel Time", "Hazardous Materials Released Code", "Hazardous Materials Released NFIRS Code", "Hazardous Materials Released", "Incident Controlled DateTime", "Incident Date Offset", "Incident Type Code", "Incident Type NFIRS Code", "Incident Type", "Initial Dispatch Code", "Injury or Death", "Intervention Time Arrival To At Patient", "Intervention Time Arrival To Water On Fire", "Is Active", "Is Locked", "Is Third Party Import", "Last Record Loaded Date", "Last Unit Cleared DateTime", "Latitude", "Longitude", "Location Apartment Number", "Location City", "Location County", "Location Cross Street, USNG, or Directions", "Location State Code", "Location State", "Location Street Address", "Location Street Number or Mile Post", "Location Street Prefix Code", "Location Street Prefix", "Location Street Suffix Code", "Location Street Suffix", "Location Street Type Code", "Location Street Type", "Location Street or Highway Name", "Location Type Code", "Location Type", "Location ZIP", "Loss Stop DateTime", "Map Page", "Mixed Use Property", "NFIRS Incident Number", "Officer In Charge Agency Person ID", "Officer In Charge Assignment", "Officer In Charge DateTime", "Officer In Charge First Name", "Officer In Charge Last Name", "Officer In Charge Middle Initial", "Officer In Charge Name", "Officer In Charge Rank", "Other Apparatus Count", "Other Personnel Count", "PSAP Alarm Handling Time", "PSAP Received DateTime", "PSAP Sent DateTime", "PSAP Total Response Time", "PSAP Turnout Time", "Property Loss Is None", "Property Use Code", "Property Use", "Property Value Is None", "Quality Control DateTime", "Quality Control First Name", "Quality Control Last Name", "Quality Control Name", "Report Writer Agency Person ID", "Report Writer Assignment", "Report Writer DateTime", "Report Writer First Name", "Report Writer Last Name", "Report Writer Middle Initial", "Report Writer Name", "Report Writer Rank", "Resources Include Mutual Aid", "Response Time Alarm To Arrival", "Response Time PSAP To Arrival", "Shift", "Station", "Suppression Apparatus Count", "Suppression Personnel Count", "Total On Scene Time", "Total Time Alarm to Last Unit Cleared", "Total Time Dispatch Notified to Last Unit Cleared", "Total Time PSAP Received to Last Unit Cleared", "Water On Fire DateTime", "Working Fire"}, {"IncidentDateNum", "Alarm Date", "Incident Number", "Incident Type Group", "IncidentID.1", "Incident Last Modified DateTime", "IncidentDateText", "Alarm DateTime", "Alarm Time", "AlarmTimeToMinute", "Agency FDID", "Aid Given Or Received Code", "Aid Given Or Received", "Aided Agency Incident Number", "Aided Agency", "Arrival DateTime", "Basic Action Taken 1 Code", "Basic Action Taken 1", "Basic Action Taken 2 Code", "Basic Action Taken 2", "Basic Action Taken 3 Code", "Basic Action Taken 3", "CAD Notes", "Contents Loss Is None", "Contents Value Is None", "Critical Incident Circumstance 1 Code", "Critical Incident Circumstance 1", "Critical Incident Circumstance 2", "Critical Incident Team Mobilized", "Critical Incident", "Detector Alerted Occupants Code", "Detector Alerted Occupants NFIRS Code", "Detector Alerted Occupants", "Dispatch Notified Alarm Handling Time", "Dispatch Run Number", "Dispatch Total Response Time", "District", "EMS Apparatus Count", "EMS Personnel Count", "Estimated Content Loss", "Estimated Content Value", "Estimated Property Loss", "Estimated Property Value", "Exposure Number", "ExposureID", "First Arriving Travel Time", "Hazardous Materials Released Code", "Hazardous Materials Released NFIRS Code", "Hazardous Materials Released", "Incident Controlled DateTime", "Incident Date Offset", "Incident Type Code", "Incident Type NFIRS Code", "Incident Type", "Initial Dispatch Code", "Injury or Death", "Intervention Time Arrival To At Patient", "Intervention Time Arrival To Water On Fire", "Is Active", "Is Locked", "Is Third Party Import", "Last Record Loaded Date", "Last Unit Cleared DateTime", "Latitude", "Longitude", "Location Apartment Number", "Location City", "Location County", "Location Cross Street, USNG, or Directions", "Location State Code", "Location State", "Location Street Address", "Location Street Number or Mile Post", "Location Street Prefix Code", "Location Street Prefix", "Location Street Suffix Code", "Location Street Suffix", "Location Street Type Code", "Location Street Type", "Location Street or Highway Name", "Location Type Code", "Location Type", "Location ZIP", "Loss Stop DateTime", "Map Page", "Mixed Use Property", "NFIRS Incident Number", "Officer In Charge Agency Person ID", "Officer In Charge Assignment", "Officer In Charge DateTime", "Officer In Charge First Name", "Officer In Charge Last Name", "Officer In Charge Middle Initial", "Officer In Charge Name", "Officer In Charge Rank", "Other Apparatus Count", "Other Personnel Count", "PSAP Alarm Handling Time", "PSAP Received DateTime", "PSAP Sent DateTime", "PSAP Total Response Time", "PSAP Turnout Time", "Property Loss Is None", "Property Use Code", "Property Use", "Property Value Is None", "Quality Control DateTime", "Quality Control First Name", "Quality Control Last Name", "Quality Control Name", "Report Writer Agency Person ID", "Report Writer Assignment", "Report Writer DateTime", "Report Writer First Name", "Report Writer Last Name", "Report Writer Middle Initial", "Report Writer Name", "Report Writer Rank", "Resources Include Mutual Aid", "Response Time Alarm To Arrival", "Response Time PSAP To Arrival", "Shift", "Station", "Suppression Apparatus Count", "Suppression Personnel Count", "Total On Scene Time", "Total Time Alarm to Last Unit Cleared", "Total Time Dispatch Notified to Last Unit Cleared", "Total Time PSAP Received to Last Unit Cleared", "Water On Fire DateTime", "Working Fire"}),
+				    #"Added Conditional Column1" = Table.AddColumn(#"Expanded AllRows", "LastModified", each if [MaxModDateTIme] = [Incident Last Modified DateTime] then true else false),
+				    #"Filtered Rows5" = Table.SelectRows(#"Added Conditional Column1", each ([LastModified] = true)),
+				    #"Removed Duplicates" = Table.Distinct(#"Filtered Rows5", {"Alarm DateTime"})
+				in
+				    #"Removed Duplicates"
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

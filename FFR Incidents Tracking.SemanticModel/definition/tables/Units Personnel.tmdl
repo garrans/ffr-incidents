@@ -1,0 +1,242 @@
+table 'Units Personnel'
+	lineageTag: b89084f9-ca2b-43b8-97cf-3ac7a649ec21
+
+	column IncidentID
+		dataType: string
+		lineageTag: 98a8b702-8461-4af7-b183-674a5386d0ca
+		summarizeBy: none
+		sourceColumn: IncidentID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Personnel Name'
+		dataType: string
+		lineageTag: 25094015-1e94-4c0f-8ddf-b1b737e429de
+		summarizeBy: none
+		sourceColumn: Unit Personnel Name
+		sortByColumn: 'Unit Personnel Last Name'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Personnel Last Name'
+		dataType: string
+		lineageTag: 9e944ba3-0e64-4c6e-8f1e-4b6d19c380f5
+		summarizeBy: none
+		sourceColumn: Unit Personnel Last Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Personnel First Name'
+		dataType: string
+		lineageTag: 9274158f-6c54-4020-ad6e-a52f26b60d33
+		summarizeBy: none
+		sourceColumn: Unit Personnel First Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column ExposureID
+		dataType: string
+		lineageTag: 65055faa-0947-427b-bfde-fabd9a97af65
+		summarizeBy: none
+		sourceColumn: ExposureID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Agency Person ID'
+		dataType: string
+		lineageTag: a1ec1703-5865-49f7-bd15-5ad446dfa6b6
+		summarizeBy: none
+		sourceColumn: Agency Person ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Apparatus Personnel ID'
+		dataType: string
+		lineageTag: 6500af55-e7ae-447a-a147-d200cb9a55da
+		summarizeBy: none
+		sourceColumn: Apparatus Personnel ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Barrier Breach'
+		dataType: string
+		lineageTag: 91c99872-83fd-4031-8853-2f9b8299d54b
+		summarizeBy: none
+		sourceColumn: Barrier Breach
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Black Soot Around Mouth'
+		dataType: string
+		lineageTag: bbe8b4d5-3613-4237-987d-e4338458446d
+		summarizeBy: none
+		sourceColumn: Black Soot Around Mouth
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Black Soot Around Nose'
+		dataType: string
+		lineageTag: b5e5b69b-46f0-491f-87c2-58f0a5d39834
+		summarizeBy: none
+		sourceColumn: Black Soot Around Nose
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fire Incident Apparatus ID'
+		dataType: string
+		lineageTag: 5ce866cd-7b5c-46b5-823c-d0f035439ee4
+		summarizeBy: none
+		sourceColumn: Fire Incident Apparatus ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'PPE Malfunction'
+		dataType: string
+		lineageTag: a9dc2d01-bb65-451e-a242-e78bf80e0e1e
+		summarizeBy: none
+		sourceColumn: PPE Malfunction
+
+		annotation SummarizationSetBy = Automatic
+
+	column Points
+		dataType: string
+		lineageTag: fb2a901f-80f7-47bd-a4c5-b4bff93b6840
+		summarizeBy: none
+		sourceColumn: Points
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Personnel Action Taken 1 Code'
+		dataType: string
+		lineageTag: c3977b06-4813-45ba-88b4-826cae952240
+		summarizeBy: none
+		sourceColumn: Unit Personnel Action Taken 1 Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Personnel Action Taken 1'
+		dataType: string
+		lineageTag: c9de2073-d5e2-407f-a0f2-d9ea205bee4f
+		summarizeBy: none
+		sourceColumn: Unit Personnel Action Taken 1
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Personnel Action Taken 2 Code'
+		dataType: string
+		lineageTag: b698ef8c-4da1-4449-b2e5-64117b32f1e4
+		summarizeBy: none
+		sourceColumn: Unit Personnel Action Taken 2 Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Personnel Action Taken 2 NFIRS Code'
+		dataType: string
+		lineageTag: b472084d-64bd-4871-96ed-c8658412d502
+		summarizeBy: none
+		sourceColumn: Unit Personnel Action Taken 2 NFIRS Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Personnel Action Taken 2'
+		dataType: string
+		lineageTag: a0f12e9f-c970-46ea-9372-9be42511721f
+		summarizeBy: none
+		sourceColumn: Unit Personnel Action Taken 2
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Personnel Action Taken 3 Code'
+		dataType: string
+		lineageTag: 9c785013-8b64-49d9-a9f2-db21f0440461
+		summarizeBy: none
+		sourceColumn: Unit Personnel Action Taken 3 Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Personnel Action Taken 3 NFIRS Code'
+		dataType: string
+		lineageTag: edf175b7-fbc7-4f14-aa59-8a6ed23a2141
+		summarizeBy: none
+		sourceColumn: Unit Personnel Action Taken 3 NFIRS Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Personnel Action Taken 3'
+		dataType: string
+		lineageTag: c69e2dff-cfaa-4afd-a3af-ef7a5286a256
+		summarizeBy: none
+		sourceColumn: Unit Personnel Action Taken 3
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Personnel Action Taken 4 Code'
+		dataType: string
+		lineageTag: 33138aa5-316d-4ef8-be14-0b4f4f259e91
+		summarizeBy: none
+		sourceColumn: Unit Personnel Action Taken 4 Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Personnel Action Taken 4 NFIRS Code'
+		dataType: string
+		lineageTag: 185c0a5a-5623-47e9-be00-381618f547f0
+		summarizeBy: none
+		sourceColumn: Unit Personnel Action Taken 4 NFIRS Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Personnel Action Taken 4'
+		dataType: string
+		lineageTag: e352c4ef-1dc0-40c3-8f37-ef6ab05eb9f5
+		summarizeBy: none
+		sourceColumn: Unit Personnel Action Taken 4
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Personnel Middle Name'
+		dataType: string
+		lineageTag: 0db4d155-d5ea-4936-b949-bad23f39a392
+		summarizeBy: none
+		sourceColumn: Unit Personnel Middle Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Unit Personnel NFIRS ID'
+		dataType: string
+		lineageTag: 86be910d-eeda-467e-aa28-325fefe5c090
+		summarizeBy: none
+		sourceColumn: Unit Personnel NFIRS ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Units Personnel' = m
+		mode: import
+		source =
+				let
+				    Source = SharePoint.Files("https://foothillsfirepd.sharepoint.com/sites/OfficeOperations", [ApiVersion = 15]),
+				    #"Uppercased Text" = Table.TransformColumns(Source,{{"Name", Text.Upper, type text}, {"Extension", Text.Upper, type text}}),
+				    #"Filtered SourceData" = Table.SelectRows(#"Uppercased Text", each Text.Contains([Folder Path], SourceData)),
+				    #"Filtered Hidden Files1" = Table.SelectRows(#"Filtered SourceData", each [Attributes]?[Hidden]? <> true),
+				    #"Filtered Rows1" = Table.SelectRows(#"Filtered Hidden Files1", each Text.Contains([Name], "UNITS PERSONNEL")),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Filtered Rows1",{"Content"}),
+				    #"Added Custom" = Table.AddColumn(#"Removed Other Columns", "Custom", each Csv.Document([Content])),
+				    #"Removed Columns4" = Table.RemoveColumns(#"Added Custom",{"Content"}),
+				    #"Expanded Custom" = Table.ExpandTableColumn(#"Removed Columns4", "Custom", {"Column1", "Column2", "Column3", "Column4", "Column5", "Column6", "Column7", "Column8", "Column9", "Column10", "Column11", "Column12", "Column13", "Column14", "Column15", "Column16", "Column17", "Column18", "Column19", "Column20", "Column21", "Column22", "Column23", "Column24", "Column25", "Column26", "Column27", "Column28", "Column29", "Column30"}, {"Column1", "Column2", "Column3", "Column4", "Column5", "Column6", "Column7", "Column8", "Column9", "Column10", "Column11", "Column12", "Column13", "Column14", "Column15", "Column16", "Column17", "Column18", "Column19", "Column20", "Column21", "Column22", "Column23", "Column24", "Column25", "Column26", "Column27", "Column28", "Column29", "Column30"}),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Expanded Custom", [PromoteAllScalars=true]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers",{{"Pay Grade", Int64.Type}}),
+				    #"Removed Errors" = Table.RemoveRowsWithErrors(#"Changed Type1", {"Pay Grade"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Removed Errors",{ {"Unit Personnel Action Taken 1", type any}, {"Pay Grade", type any}, {"Unit Personnel Action Taken 1 Code", type any}, {"PPE Malfunction", type any}, {"Apparatus Personnel ID", type any}, {"ExposureID", type text}, {"Unit Personnel Action Taken 3", type any}, {"Barrier Breach", type any}, {"Fire Incident Apparatus ID", type any}, {"Unit Personnel Action Taken 4", type any}, {"Points", type any}, {"Unit Personnel Action Taken 3 Code", type any}, {"Unit Personnel Action Taken 2", type any}, {"Black Soot Around Mouth", type any}, {"Unit Personnel Middle Name", type any}, {"Unit Personnel Action Taken 3 NFIRS Code", type any}, {"Patient Contact", type any}, {"Unit Personnel Action Taken 1 NFIRS Code", type any}, {"Unit Personnel Last Name", type any}, {"Unit Personnel Action Taken 4 NFIRS Code", type any}, {"IncidentID", type text}, {"Pay Hours", type any}, {"Unit Personnel Action Taken 4 Code", type any}, {"Unit Personnel Name", type any}, {"Agency Person ID", type any}, {"Unit Personnel First Name", type any}, {"Unit Personnel Action Taken 2 NFIRS Code", type any}, {"Unit Personnel NFIRS ID", type any}, {"Unit Personnel Action Taken 2 Code", type any}, {"Black Soot Around Nose", type any}}),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Changed Type",{"IncidentID", "Unit Personnel Name", "Unit Personnel Last Name", "Unit Personnel First Name", "ExposureID", "Agency Person ID", "Apparatus Personnel ID", "Barrier Breach", "Black Soot Around Mouth", "Black Soot Around Nose", "Fire Incident Apparatus ID", "PPE Malfunction", "Patient Contact", "Pay Grade", "Pay Hours", "Points", "Unit Personnel Action Taken 1 Code", "Unit Personnel Action Taken 1 NFIRS Code", "Unit Personnel Action Taken 1", "Unit Personnel Action Taken 2 Code", "Unit Personnel Action Taken 2 NFIRS Code", "Unit Personnel Action Taken 2", "Unit Personnel Action Taken 3 Code", "Unit Personnel Action Taken 3 NFIRS Code", "Unit Personnel Action Taken 3", "Unit Personnel Action Taken 4 Code", "Unit Personnel Action Taken 4 NFIRS Code", "Unit Personnel Action Taken 4", "Unit Personnel Middle Name", "Unit Personnel NFIRS ID"}),
+				    #"Sorted Rows" = Table.Sort(#"Reordered Columns",{{"IncidentID", Order.Ascending}}),
+				    #"Filtered Rows2" = Table.SelectRows(#"Sorted Rows", each [Unit Personnel Name] <> null and [Unit Personnel Name] <> ""),
+				    #"Removed Columns" = Table.RemoveColumns(#"Filtered Rows2",{"Patient Contact", "Pay Grade", "Pay Hours", "Unit Personnel Action Taken 1 NFIRS Code"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
